@@ -393,4 +393,10 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 
 /* Teamfoto op de teampagina */
 .teamfoto { margin: 14px 0 0; }
-.teamfoto img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.tf-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: var(--radius); scrollbar-width: none; }
+.tf-strip::-webkit-scrollbar { display: none; }
+.tf { flex: 0 0 100%; scroll-snap-align: start; padding: 0; border: 0; background: var(--lijn); cursor: zoom-in; }
+.tf img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.tf-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+.tf-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--lijn); transition: background .15s; }
+.tf-dots span.on { background: var(--inkt); }

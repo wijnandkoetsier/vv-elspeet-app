@@ -434,6 +434,15 @@ async function viewTeams() {
     ${['Senioren', 'Junioren', 'Pupillen'].map(block).join('')}`;
 }
 
+// Teamfoto's: één foto gewoon, meerdere als veegbare strook met bolletjes. Tik = groot.
+function teamPhotos(t) {
+  const list = t.photos || (t.photo ? [t.photo] : []);
+  if (!list.length) return '';
+  const imgs = list.map((src, i) => `<button type="button" class="tf" data-photo="${esc(src)}" data-alt="Teamfoto ${esc(t.name)}"><img src="${esc(src)}" alt="Teamfoto ${esc(t.name)}${list.length > 1 ? ` (${i + 1})` : ''}" loading="lazy"></button>`).join('');
+  const dots = list.length > 1 ? `<div class="tf-dots" aria-hidden="true">${list.map((_, i) => `<span class="${i ? '' : 'on'}"></span>`).join('')}</div>` : '';
+  return `<figure class="teamfoto"><div class="tf-strip" data-strip>${imgs}</div>${dots}</figure>`;
+}
+
 async function viewTeam(slug) {
   const data = await api.clubData();
   const t = data.teams.find((x) => x.slug === slug);
@@ -449,7 +458,7 @@ async function viewTeam(slug) {
       <img src="icons/logo.png" alt="">
       <div><small>${esc(t.group)}</small><h1>${esc(t.name)}</h1><span class="muted">${esc(t.info)}</span></div>
     </section>
-    ${t.photo ? `<figure class="teamfoto"><img src="${esc(t.photo)}" alt="Teamfoto ${esc(t.name)}" loading="lazy"></figure>` : ''}
+    ${teamPhotos(t)}
     <button type="button" class="btn ${fav ? 'ghost' : ''} wide" data-fav="${esc(t.name)}">${fav ? '★ Je volgt dit team' : '☆ Volg dit team'}</button>
     ${section('Programma')}
     ${up.length ? `<div class="card list">${up.map((m) => matchRow(m, { showDate: true })).join('')}</div>` : '<p class="muted pad">Geen wedstrijden gepland.</p>'}
@@ -458,6 +467,11 @@ async function viewTeam(slug) {
     ${data.standings[t.name] ? section('Stand') + standTable(data.standings[t.name], t.name) : ''}
     <div id="team-news"></div>
     ${sourceNote(data)}`;
+  const strip = $view.querySelector('[data-strip]');
+  strip?.addEventListener('scroll', () => {
+    const i = Math.round(strip.scrollLeft / strip.clientWidth);
+    strip.parentElement.querySelectorAll('.tf-dots span').forEach((d, k) => d.classList.toggle('on', k === i));
+  }, { passive: true });
   const cat = await api.categoryBySlug(slug).catch(() => null);
   if (cat?.count) {
     const el = document.getElementById('team-news');

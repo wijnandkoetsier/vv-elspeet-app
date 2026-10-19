@@ -1,5 +1,5 @@
 // Service worker van de clubapp: app-schil en laatst bekeken data blijven offline te openen.
-const CACHE = 'vve-club-v11';
+const CACHE = 'vve-club-v12';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest?v=2', 'css/club.css',
   'js/app.js', 'js/api.js', 'js/config.js', 'data/snapshot.json',

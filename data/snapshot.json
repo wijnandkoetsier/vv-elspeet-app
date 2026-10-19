@@ -583,7 +583,11 @@
    "name": "Elspeet VR1",
    "group": "Senioren",
    "info": "Vrouwen · Zaterdag",
-   "category": "vr1"
+   "category": "vr1",
+   "photos": [
+    "img/teams/elspeet-vr1-1.jpg",
+    "img/teams/elspeet-vr1-2.jpg"
+   ]
   },
   {
    "slug": "elspeet-vr30",
@@ -598,7 +602,9 @@
    "group": "Junioren",
    "info": "Onder 19",
    "category": "jo19-1",
-   "photo": "img/teams/elspeet-jo19-1.jpg"
+   "photos": [
+    "img/teams/elspeet-jo19-1.jpg"
+   ]
   },
   {
    "slug": "elspeet-jo17-1",
