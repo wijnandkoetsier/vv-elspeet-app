@@ -11,8 +11,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-vv-elspeet-app
+  cancel-in-progress: false
 
 jobs:
   deploy:
