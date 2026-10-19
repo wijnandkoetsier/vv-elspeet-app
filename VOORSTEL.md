@@ -33,7 +33,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 | **Wedstrijdverslagen** | Nieuws gefilterd op de categorie Wedstrijdverslagen | WordPress (live) |
 | **Media** | Instagram @vvelspeet, fotogalerij uit de mediabibliotheek (tik voor groot), laatste verslagen | WordPress (live) |
 | **Teams** | Alle 20 teams per leeftijdsgroep. Met ☆ volg je een team; het komt dan op Home. Per team: programma, uitslagen, stand en berichten uit de teamcategorie | Sportlink + WordPress |
-| **Elspeet 1** | Positie, punten en vorm (laatste 5), volgende wedstrijden, stand, uitslagen, verslagen, over het team; technische staf zodra de namen bekend zijn | Sportlink + WordPress |
+| **Elspeet 1** | Zelfde opbouw als de andere teams: teamfoto, volgen, programma, uitslagen, stand en verslagen | Sportlink + WordPress |
 | **Over de club** | Geschiedenis, sportpark en kerncijfers. Voor de rest een link naar de website | Site |
 | **Sponsoren** | Alle sponsors zoals in de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, 5 tot 3 sterren, scorebord, balsponsors en Vrienden van ESV. Logo's linken naar de sponsor. Daaronder de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |
 | **Agenda** | Clubactiviteiten met datum en tijd, elk met *In agenda* | Site |

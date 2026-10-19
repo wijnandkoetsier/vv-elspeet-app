@@ -447,7 +447,6 @@ async function viewTeam(slug) {
   const data = await api.clubData();
   const t = data.teams.find((x) => x.slug === slug);
   if (!t) { $view.innerHTML = errorBox('Team niet gevonden.'); return; }
-  if (t.name === 'Elspeet 1') { location.replace('#/elspeet-1'); return; }
   setTitle(t.name);
   const ms = data.matches.filter((m) => m.team === t.name);
   const up = ms.filter((m) => !m.score).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
@@ -478,45 +477,6 @@ async function viewTeam(slug) {
     el.innerHTML = section('Nieuws en verslagen', `#/nieuws/${slug}`) + `<div class="posts">${loading()}</div>`;
     fillPosts(el.querySelector('.posts'), { category: slug, perPage: 3 });
   }
-}
-
-async function viewElspeet1() {
-  setTitle('Elspeet 1');
-  const data = await api.clubData();
-  const e1 = data.elspeet1;
-  // Staf alleen tonen als er namen bekend zijn.
-  const staff = (e1.staff || []).filter(([, naam]) => naam && !/naam volgt/i.test(naam));
-  const ms = data.matches.filter((m) => m.team === 'Elspeet 1');
-  const next = ms.filter((m) => !m.score && toDate(m.date, m.time) >= startOfToday()).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  const res = ms.filter((m) => m.score).sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
-  const form = res.slice(0, 5).map(outcome).map((o) => `<span class="vorm ${o[2]}" title="${o[1]}">${o[0]}</span>`).join('');
-  const fav = isFav('Elspeet 1');
-  const rank = data.standings['Elspeet 1']?.find((r) => r.team === 'Elspeet 1');
-  $view.innerHTML = `
-    <section class="vlag">
-      <small>Het eerste elftal</small>
-      <h1>Elspeet 1</h1>
-      <p>Het vlaggenschip van de vereniging.</p>
-      <div class="vlag-stats">
-        ${rank ? `<span><b>${rank.pos}e</b><small>in de stand</small></span><span><b>${rank.p}</b><small>punten</small></span>` : ''}
-        <span><b class="vorm-rij">${form}</b><small>vorm</small></span>
-      </div>
-    </section>
-    ${teamPhotos(data.teams.find((x) => x.name === 'Elspeet 1') || {})}
-    <button type="button" class="btn ${fav ? 'ghost' : ''} wide" data-fav="Elspeet 1">${fav ? '★ Je volgt Elspeet 1' : '☆ Volg Elspeet 1'}</button>
-    ${next[0] ? bigMatch(next[0], 'Volgende wedstrijd') : ''}
-    ${next.length > 1 ? `<div class="card list">${next.slice(1).map((m) => matchRow(m, { showDate: true })).join('')}</div>` : ''}
-    ${data.standings['Elspeet 1'] ? section('Stand') + standTable(data.standings['Elspeet 1']) : ''}
-    ${section('Uitslagen')}
-    <div class="card list">${res.map((m) => matchRow(m, { showDate: true })).join('')}</div>
-    ${section('Wedstrijdverslagen', '#/nieuws/elspeet-1')}
-    <div class="posts" id="e1-news">${loading()}</div>
-    ${section('Over het team')}
-    <div class="card pad-l">${e1.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
-      <dl class="feiten">${e1.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>
-    ${staff.length ? section('Technische staf') + `<div class="card list">${staff.map(([rol, naam]) => `<div class="kv"><span class="muted">${esc(rol)}</span><b>${esc(naam)}</b></div>`).join('')}</div>` : ''}
-    ${sourceNote(data)}`;
-  fillPosts(document.getElementById('e1-news'), { category: 'elspeet-1', perPage: 3 });
 }
 
 async function viewClub() {
@@ -599,7 +559,7 @@ async function viewContact() {
 function viewMeer() {
   setTitle('Meer');
   const items = [
-    ['#/elspeet-1', 'Elspeet 1', 'Selectie, stand en verslagen'],
+    ['#/elspeet-1', 'Elspeet 1', 'Programma, stand en verslagen'],
     ['#/verslagen', 'Wedstrijdverslagen', 'De verhalen van het veld'],
     ['#/media', 'Media', "Foto's, video's en Instagram"],
     ['#/agenda', 'Agenda', 'Activiteiten van de club'],
@@ -646,7 +606,7 @@ async function showMatch(key) {
     </div>
     <div class="art-acties">
       ${!m.score ? `<button class="btn" type="button" data-ics="${esc(key)}">＋ In agenda</button>` : ''}
-      ${slug ? `<a class="btn ghost" href="#/${m.team === 'Elspeet 1' ? 'elspeet-1' : `teams/${slug}`}">Naar ${esc(m.team)}</a>` : ''}
+      ${slug ? `<a class="btn ghost" href="#/teams/${slug}">Naar ${esc(m.team)}</a>` : ''}
     </div>`);
 }
 
@@ -663,7 +623,7 @@ const routes = [
   [/^\/media$/, 'meer', viewMedia],
   [/^\/teams$/, 'teams', viewTeams],
   [/^\/teams\/([\w-]+)$/, 'teams', (s) => viewTeam(s), true],
-  [/^\/elspeet-1$/, 'meer', viewElspeet1],
+  [/^\/elspeet-1$/, 'meer', () => viewTeam('elspeet-1')],
   [/^\/club$/, 'meer', viewClub],
   [/^\/sponsoren$/, 'meer', viewSponsoren],
   [/^\/agenda$/, 'meer', viewAgenda],
