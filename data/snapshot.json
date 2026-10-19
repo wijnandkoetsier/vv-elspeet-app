@@ -674,7 +674,10 @@
    "name": "Kabouters",
    "group": "Pupillen",
    "info": "Vanaf 4 jaar",
-   "category": "kabouters"
+   "category": "kabouters",
+   "photos": [
+    "img/teams/kabouters-1.jpg"
+   ]
   }
  ],
  "agenda": [
