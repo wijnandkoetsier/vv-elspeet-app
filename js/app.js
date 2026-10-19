@@ -500,14 +500,19 @@ async function viewBestuur() {
   setTitle('Bestuur & commissies');
   const b = (await api.clubData()).bestuur;
   const mail = (e) => `<a class="mail" href="mailto:${esc(e)}">${esc(e)}</a>`;
-  const persoon = (p) => `<div class="persoon"><span class="avatar" aria-hidden="true">${esc(p.name.split(' ').map((w) => w[0]).filter((c) => /[A-Z]/.test(c)).slice(0, 2).join(''))}</span>
+  const initialen = (n) => n.split(' ').map((w) => w[0]).filter((c) => /[A-Z]/.test(c)).slice(0, 2).join('');
+  const groepsfoto = (src, alt) => (src ? `<button type="button" class="bc-foto" data-photo="${esc(src)}" data-alt="${esc(alt)}"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"></button>` : '');
+  const persoon = (p) => `<div class="persoon">${p.photo
+    ? `<img class="avatar" src="${esc(p.photo)}" alt="" loading="lazy">`
+    : `<span class="avatar" aria-hidden="true">${esc(initialen(p.name))}</span>`}
     <span><b>${esc(p.name)}</b><small>${esc(p.role)}</small>${p.email ? mail(p.email) : ''}</span></div>`;
   const blok = (s) => `<section class="bc" id="bc-${esc(s.id)}">
       <small class="kicker">${esc(s.kicker)}</small><h2>${esc(s.title)}</h2>
+      ${groepsfoto(s.photo, `Groepsfoto ${s.title}`)}
       ${(s.text || []).map((t) => `<p>${esc(t)}</p>`).join('')}
       ${(s.groups || []).map((g) => `${g.title ? `<h3>${esc(g.title)}</h3>` : ''}<div class="card list">${g.people.map(persoon).join('')}</div>`).join('')}
       ${s.facts ? `<div class="card list">${s.facts.map(([k, v]) => `<div class="kv"><span class="muted">${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>` : ''}
-      ${(s.committees || []).map((c) => `<div class="card commissie"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p>${c.email ? mail(c.email) : ''}${c.link ? `<a class="mail" href="${esc(c.link[1])}">${esc(c.link[0])} →</a>` : ''}</div>`).join('')}
+      ${(s.committees || []).map((c) => `<div class="card commissie">${c.photo ? groepsfoto(c.photo, `Groepsfoto ${c.title}`) : ''}<h3>${esc(c.title)}</h3><p>${esc(c.text)}</p>${c.email ? mail(c.email) : ''}${c.link ? `<a class="mail" href="${esc(c.link[1])}">${esc(c.link[0])} →</a>` : ''}</div>`).join('')}
       ${s.email ? `<p class="bc-mail">${mail(s.email)}</p>` : ''}
     </section>`;
   $view.innerHTML = `

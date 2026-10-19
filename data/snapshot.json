@@ -1404,22 +1404,26 @@
        {
         "name": "Ronny van der Horst",
         "role": "Voorzitter",
-        "email": "voorzitter@vv-elspeet.nl"
+        "email": "voorzitter@vv-elspeet.nl",
+        "photo": "img/bestuur/ronnyvanderhorst.jpg"
        },
        {
         "name": "Mark Spijkerboer",
         "role": "Jeugdvoorzitter",
-        "email": "jeugdvoorzitter@vv-elspeet.nl"
+        "email": "jeugdvoorzitter@vv-elspeet.nl",
+        "photo": "img/bestuur/markspijkerboer.jpg"
        },
        {
         "name": "Martin Kieft",
         "role": "Secretaris",
-        "email": "secretariaat@vv-elspeet.nl"
+        "email": "secretariaat@vv-elspeet.nl",
+        "photo": "img/bestuur/martinkieft.jpg"
        },
        {
         "name": "Hans Hop",
         "role": "Penningmeester",
-        "email": "penningmeester@vv-elspeet.nl"
+        "email": "penningmeester@vv-elspeet.nl",
+        "photo": "img/bestuur/hanshop.jpg"
        }
       ]
      },
@@ -1439,16 +1443,19 @@
        {
         "name": "Henri van Asselt",
         "role": "Kantinezaken",
-        "email": "kantine@vv-elspeet.nl"
+        "email": "kantine@vv-elspeet.nl",
+        "photo": "img/bestuur/henrivanasselt.jpg"
        },
        {
         "name": "Kor Lokhorst",
         "role": "Sponsorcommissie · algemeen bestuurslid",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/korlokhorst.jpg"
        }
       ]
      }
-    ]
+    ],
+    "photo": "img/bestuur/groep-hoofdbestuur.jpg"
    },
    {
     "id": "jeugdbestuur",
@@ -1463,12 +1470,14 @@
        {
         "name": "Mark Spijkerboer",
         "role": "Jeugdvoorzitter",
-        "email": "jeugdvoorzitter@vv-elspeet.nl"
+        "email": "jeugdvoorzitter@vv-elspeet.nl",
+        "photo": "img/bestuur/markspijkerboer.jpg"
        },
        {
         "name": "Wilco Kok",
         "role": "Algemeen lid",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/wilcokok.jpg"
        },
        {
         "name": "Gerald Wolfsen",
@@ -1478,12 +1487,14 @@
        {
         "name": "Werner Pluim",
         "role": "Algemeen lid",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/wernerpluim.jpg"
        }
       ]
      }
     ],
-    "email": "jeugdbestuur@vv-elspeet.nl"
+    "email": "jeugdbestuur@vv-elspeet.nl",
+    "photo": "img/bestuur/groep-jeugdbestuur.jpg"
    },
    {
     "id": "vtc",
@@ -1523,32 +1534,38 @@
        {
         "name": "Herald Hop",
         "role": "TC Jeugd",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/heraldhop.jpg"
        },
        {
         "name": "Mark Spijkerboer",
         "role": "TC Jeugd",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/markspijkerboer.jpg"
        },
        {
         "name": "Karl Pul",
         "role": "TC Jeugd",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/karlpul.jpg"
        },
        {
         "name": "Jurgen Kroes",
         "role": "TC Jeugd",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/jurgenkroes.jpg"
        },
        {
         "name": "Werner Pluim",
         "role": "TC Jeugd",
-        "email": ""
+        "email": "",
+        "photo": "img/bestuur/wernerpluim.jpg"
        }
       ]
      }
     ],
-    "email": "tcjeugd@vv-elspeet.nl"
+    "email": "tcjeugd@vv-elspeet.nl",
+    "photo": "img/bestuur/groep-tc-jeugd.jpg"
    },
    {
     "id": "commissies",
@@ -1566,16 +1583,19 @@
       "link": [
        "Naar sponsoren",
        "#/sponsoren"
-      ]
+      ],
+      "photo": "img/bestuur/groep-sponsorcommissie.jpg"
      },
      {
       "title": "Presentatiegids",
       "text": "Elk seizoen verschijnt de digitale presentatiegids met alle teams, sponsors en verhalen. De edities vanaf 2018/2019 tot en met 2025/2026 zijn online terug te lezen.",
-      "email": "presentatiegids@vv-elspeet.nl"
+      "email": "presentatiegids@vv-elspeet.nl",
+      "photo": "img/bestuur/groep-presentatiegids.jpg"
      },
      {
       "title": "Activiteitencommissie Jeugd",
-      "text": "Organiseert door het seizoen heen activiteiten voor de jeugdleden, naast het voetballen om."
+      "text": "Organiseert door het seizoen heen activiteiten voor de jeugdleden, naast het voetballen om.",
+      "photo": "img/bestuur/groep-ac-jeugd.jpg"
      },
      {
       "title": "Webteam",
@@ -1598,12 +1618,14 @@
        {
         "name": "Ilona Koetsier",
         "role": "Vertrouwenspersoon",
-        "email": "vertrouwenspersoon@vv-elspeet.nl"
+        "email": "vertrouwenspersoon@vv-elspeet.nl",
+        "photo": "img/bestuur/ilonakoetsier.jpg"
        },
        {
         "name": "Alice van de Steeg",
         "role": "Vertrouwenspersoon",
-        "email": "vertrouwenspersoon@vv-elspeet.nl"
+        "email": "vertrouwenspersoon@vv-elspeet.nl",
+        "photo": "img/bestuur/alicevandesteeg.jpg"
        }
       ]
      }
