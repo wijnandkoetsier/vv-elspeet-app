@@ -463,7 +463,14 @@ function viewMeer() {
   $view.innerHTML = `
     <h1 class="paginakop">Meer</h1>
     <div class="card list">${items.map(([h, t, s]) => `<a class="nav-row" href="${h}"><span><b>${t}</b><small>${s}</small></span><span aria-hidden="true">›</span></a>`).join('')}</div>
-    <p class="muted small pad">Installeer de app: iPhone → Safari → Deel → Zet op beginscherm. Android → Chrome → ⋮ → App installeren.</p>`;
+    ${installPrompt ? '<button class="btn wide" type="button" id="install">Installeer de app</button>' : ''}
+    <p class="muted small pad">${standalone() ? 'Je gebruikt de geïnstalleerde app.' : 'Installeer de app: iPhone → Safari → Deel → Zet op beginscherm. Android → Chrome → ⋮ → App installeren.'}</p>`;
+  document.getElementById('install')?.addEventListener('click', async () => {
+    installPrompt.prompt();
+    await installPrompt.userChoice.catch(() => {});
+    installPrompt = null;
+    viewMeer();
+  });
 }
 
 // ---------- Sheet (wedstrijddetails, foto's) ----------
@@ -564,6 +571,16 @@ document.addEventListener('click', async (e) => {
   }
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$sheet.hidden) closeSheet(); });
+
+// Installeren vanuit de app zelf (Android/Chrome). Op iPhone gaat het via Deel → Zet op beginscherm.
+let installPrompt = null;
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installPrompt = e;
+  if (location.hash === '#/meer') viewMeer();
+});
+window.addEventListener('appinstalled', () => { installPrompt = null; });
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 route();

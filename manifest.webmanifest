@@ -3,6 +3,7 @@
   "short_name": "VV Elspeet",
   "description": "De clubapp van V.V. Elspeet: programma, uitslagen, nieuws, teams en meer",
   "lang": "nl",
+  "id": "vv-elspeet-clubapp",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
