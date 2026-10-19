@@ -17,9 +17,12 @@ insert into public.rating_players (name, sort) values
   ('Erwin van Leeuwen', 5), ('Joran van Drunen', 6), ('Leon Post', 7), ('Chiel Noorderink', 8),
   ('Niels van de Steeg', 9), ('Robin Post', 10), ('Thijs Hazeleger', 11), ('Robin Smink', 12),
   ('Chiel Dijkgraaf', 13), ('Steyn Boer', 14), ('Stijn van Asselt', 15), ('David Bleijenberg', 16),
-  ('Jan de Vos', 17), ('Wim Kroes', 18), ('Sigi Carrera', 19), ('Elisa Plender', 20),
   ('Jorni van Zeist', 21), ('Bart van den Hoorn', 22)
 on conflict (name) do nothing;
+
+-- Niet meer in de selectie (blijven bewaard voor eerdere cijfers, maar staan niet meer in de app).
+update public.rating_players set active = false
+where name in ('Wim Kroes', 'Jan de Vos', 'Sigi Carrera', 'Elisa Plender');
 
 create table if not exists public.player_ratings (
   id         bigint generated always as identity primary key,
