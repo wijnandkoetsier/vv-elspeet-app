@@ -179,6 +179,7 @@ async function viewHome() {
   const logos = [...data.sponsors.logos].sort(() => Math.random() - 0.5).slice(0, 8);
 
   $view.innerHTML = `
+    <figure class="luchtfoto"><img src="img/sportpark.jpg" alt="Luchtfoto van Sportpark Op de Heide" width="1080" height="606"></figure>
     <section class="welkom">
       <h1>Samen voetballen<br>op de Heide.</h1>
       <p>Van kabouters tot veteranen: bij V.V. Elspeet speelt het hele dorp.</p>
