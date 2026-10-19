@@ -534,7 +534,10 @@
    "name": "Elspeet 1",
    "group": "Senioren",
    "info": "Zaterdag · 5e klasse",
-   "category": "1"
+   "category": "1",
+   "photos": [
+    "img/teams/elspeet-1.jpg"
+   ]
   },
   {
    "slug": "elspeet-2",

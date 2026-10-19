@@ -502,6 +502,7 @@ async function viewElspeet1() {
         <span><b class="vorm-rij">${form}</b><small>vorm</small></span>
       </div>
     </section>
+    ${teamPhotos(data.teams.find((x) => x.name === 'Elspeet 1') || {})}
     <button type="button" class="btn ${fav ? 'ghost' : ''} wide" data-fav="Elspeet 1">${fav ? '★ Je volgt Elspeet 1' : '☆ Volg Elspeet 1'}</button>
     ${next[0] ? bigMatch(next[0], 'Volgende wedstrijd') : ''}
     ${next.length > 1 ? `<div class="card list">${next.slice(1).map((m) => matchRow(m, { showDate: true })).join('')}</div>` : ''}
