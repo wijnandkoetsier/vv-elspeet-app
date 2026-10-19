@@ -93,15 +93,15 @@ main.in { animation: in .18s ease-out; }
 .luchtfoto > img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .luchtfoto::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(15, 16, 14, 0) 45%, rgba(15, 16, 14, .78) 100%);
+  background: linear-gradient(90deg, rgba(15, 16, 14, .72) 0%, rgba(15, 16, 14, .5) 65%, rgba(15, 16, 14, .3) 100%);
 }
 .lf-brand {
-  position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 1;
-  display: flex; align-items: center; gap: 12px; color: #fff;
+  position: absolute; left: 32px; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;
+  display: flex; align-items: center; gap: 14px; color: #fff;
 }
-.lf-brand img { width: 60px; height: 62px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .45)); }
-.lf-brand b { display: block; font-family: var(--display); font-size: 30px; line-height: 1.05; letter-spacing: -.02em; text-shadow: 0 2px 10px rgba(0, 0, 0, .5); }
-.lf-brand small { color: #e6e9df; font-size: 14px; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+.lf-brand img { width: 84px; height: 87px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .5)); }
+.lf-brand b { display: block; font-family: var(--display); font-size: 32px; line-height: 1.05; letter-spacing: -.02em; text-shadow: 0 2px 10px rgba(0, 0, 0, .55); }
+.lf-brand small { display: block; margin-top: 4px; color: #eef1e8; font-size: 14px; text-shadow: 0 1px 6px rgba(0, 0, 0, .7); }
 
 body.home .topbar {
   position: fixed; left: 0; right: 0;
