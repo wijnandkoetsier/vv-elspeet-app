@@ -18,3 +18,14 @@ npx http-server -c-1 .
 GitHub → **Settings → Pages → Source: GitHub Actions**. Bij elke merge naar `main` publiceert `.github/workflows/pages.yml` de app.
 
 Geen build-stap: gewone HTML/CSS/JavaScript.
+
+## Spelerscijfers en Speler van het jaar (eenmalig instellen)
+
+Bij elke gespeelde wedstrijd van Elspeet 1 (of een wedstrijd van vandaag) kan iedereen in de app de spelers een cijfer geven: 1 t/m 10 per halve punt, of een streepje voor niet gespeeld. Onder **Meer → Speler van het jaar** staat de stand: het gemiddelde cijfer per speler over het seizoen.
+
+De cijfers staan in hetzelfde Supabase-project als Elspeet Fluit. Eenmalig:
+
+1. Open Supabase → **SQL Editor**.
+2. Plak de inhoud van [`supabase/speler-van-het-jaar.sql`](supabase/speler-van-het-jaar.sql) en klik **Run**.
+
+Spelers toevoegen of op non-actief zetten kan daarna in Supabase → **Table Editor → rating_players**.

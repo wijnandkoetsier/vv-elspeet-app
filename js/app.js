@@ -1,6 +1,6 @@
 // Clubapp V.V. Elspeet: schermen en navigatie. Geen build-stap, gewone ES-modules.
 import * as api from './api.js';
-import { SITE, CAT_VERSLAGEN, INSTAGRAM } from './config.js';
+import { SITE, CAT_VERSLAGEN, INSTAGRAM, RATING_TEAM } from './config.js';
 
 const $view = document.getElementById('view');
 const $sheet = document.getElementById('sheet');
@@ -593,6 +593,7 @@ function viewMeer() {
     ['#/agenda', 'Agenda', 'Activiteiten van de club'],
     ['#/club', 'Over de club', 'Geschiedenis en sportpark'],
     ['#/bestuur', 'Bestuur & commissies', 'Wie doet wat bij de club'],
+    ['#/speler-van-het-jaar', 'Speler van het jaar', 'Stand van de spelerscijfers'],
     ['#/sponsoren', 'Sponsoren', 'Onze partners en pakketten'],
     ['#/contact', 'Contact', 'Adres, kantine en route'],
   ];
@@ -633,10 +634,105 @@ async function showMatch(key) {
       <div class="kv"><span class="muted">Locatie</span><b>${esc(homeAway(m) === 'Thuis' ? `Op de Heide${m.field ? `, ${m.field}` : ''}` : m.field || 'Uit')}</b></div>
       ${m.referee ? `<div class="kv"><span class="muted">Scheidsrechter</span><b>${esc(m.referee)}</b></div>` : ''}
     </div>
+    ${canRate(m) ? '<section class="cijfers" id="cijfers"><h3>Spelerscijfers</h3><p class="muted small">Laden…</p></section>' : ''}
     <div class="art-acties">
       ${!m.score ? `<button class="btn" type="button" data-ics="${esc(key)}">＋ In agenda</button>` : ''}
       ${slug ? `<a class="btn ghost" href="#/teams/${slug}">Naar ${esc(m.team)}</a>` : ''}
     </div>`);
+  if (canRate(m)) fillMatchRatings(m);
+}
+
+// ---------- Spelerscijfers en Speler van het jaar ----------
+// Alleen voor Elspeet 1, en alleen als de wedstrijd vandaag is of al gespeeld is.
+
+const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+const canRate = (m) => m.team === RATING_TEAM && m.date <= todayISO();
+const matchKeyOf = (m) => `${m.date}|${m.home}|${m.away}`;
+const cijfer = (n) => Number(n).toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const SCORES = Array.from({ length: 19 }, (_, i) => 1 + i * 0.5);
+function seasonOf(iso) {
+  const [y, mth] = iso.split('-').map(Number);
+  return mth >= 7 ? `${y}/${y + 1}` : `${y - 1}/${y}`;
+}
+const notReady = (e) => (e.status === 404 || /function|relation|schema cache/i.test(e.message || ''))
+  ? 'Cijfers geven is nog niet ingesteld (database volgt).'
+  : 'Cijfers konden niet geladen worden. Controleer je verbinding.';
+
+async function fillMatchRatings(m) {
+  const el = document.getElementById('cijfers');
+  if (!el) return;
+  try {
+    const [rows, mine] = await Promise.all([api.matchRatings(matchKeyOf(m)), api.myRatings(matchKeyOf(m))]);
+    const voted = mine.length > 0;
+    el.innerHTML = `<h3>Spelerscijfers</h3>
+      ${rows.length
+        ? `<div class="card list">${rows.map((r) => `<div class="cijfer-rij"><span>${esc(r.player)}</span><small class="muted">${r.votes} ${r.votes === 1 ? 'stem' : 'stemmen'}</small><b class="cijfer ${Number(r.avg) >= 7 ? 'hoog' : Number(r.avg) < 5.5 ? 'laag' : ''}">${cijfer(r.avg)}</b></div>`).join('')}</div>`
+        : '<p class="muted small">Nog geen cijfers gegeven voor deze wedstrijd.</p>'}
+      <button class="btn wide" type="button" data-rate="${esc(m.date + m.time + m.home)}">${voted ? 'Pas je cijfers aan' : 'Geef cijfers'}</button>`;
+  } catch (e) {
+    el.innerHTML = `<h3>Spelerscijfers</h3><p class="note">${esc(notReady(e))}</p>`;
+  }
+}
+
+async function openRating(key) {
+  const m = await findMatch(key);
+  if (!m || !canRate(m)) return;
+  const data = await api.clubData();
+  openSheet('<p class="muted">Laden…</p>');
+  let players = data.elspeet1?.players || [];
+  let mine = [];
+  try {
+    [players, mine] = await Promise.all([api.ratingPlayers().catch(() => players), api.myRatings(matchKeyOf(m))]);
+  } catch (e) {
+    openSheet(`<h2>Cijfers geven</h2><p class="note">${esc(notReady(e))}</p>`);
+    return;
+  }
+  const eerder = Object.fromEntries(mine.map((r) => [r.player, Number(r.score)]));
+  const opties = (naam) => `<option value="">–</option>${SCORES.map((v) => `<option value="${v}" ${eerder[naam] === v ? 'selected' : ''}>${cijfer(v).replace(',0', '')}</option>`).join('')}`;
+  openSheet(`<form class="cijferform" id="cijferform">
+    <h2>Cijfers · ${esc(m.home)} – ${esc(m.away)}</h2>
+    <p class="muted small">${long(toDate(m.date))}${m.score ? ` · ${esc(m.score.replace('-', '–'))}` : ''}. Geef een cijfer van 1 tot 10 (halve punten mogen). Een streepje (–) betekent: niet gespeeld.</p>
+    <div class="card list">${players.map((naam) => `<label class="cijfer-rij"><span>${esc(naam)}</span><select name="${esc(naam)}" aria-label="Cijfer ${esc(naam)}">${opties(naam)}</select></label>`).join('')}</div>
+    <div class="filter-acties"><button type="button" class="btn ghost" data-close>Annuleer</button><button type="submit" class="btn">Opslaan</button></div>
+  </form>`);
+  document.getElementById('cijferform').onsubmit = async (e) => {
+    e.preventDefault();
+    const knop = e.target.querySelector('[type=submit]');
+    const ratings = {};
+    for (const sel of e.target.querySelectorAll('select')) if (sel.value) ratings[sel.name] = Number(sel.value);
+    knop.disabled = true; knop.textContent = 'Opslaan…';
+    try {
+      await api.submitRatings(matchKeyOf(m), m.date, ratings);
+      await showMatch(key);
+      document.getElementById('cijfers')?.scrollIntoView({ block: 'start' });
+    } catch (err) {
+      knop.disabled = false; knop.textContent = 'Opslaan';
+      e.target.insertAdjacentHTML('afterbegin', `<p class="note warn">${esc(err.status === 404 ? notReady(err) : `Opslaan lukte niet: ${err.message}`)}</p>`);
+    }
+  };
+}
+
+async function viewSpelerVanHetJaar() {
+  setTitle('Speler van het jaar');
+  const season = seasonOf(todayISO());
+  $view.innerHTML = `
+    <h1 class="paginakop">Speler van het jaar</h1>
+    <p class="lead">${esc(RATING_TEAM)} · seizoen ${esc(season)}. Gemiddeld cijfer per speler over alle gespeelde wedstrijden. Geef zelf cijfers via een uitslag van ${esc(RATING_TEAM)}.</p>
+    <div id="svhj">${loading()}</div>
+    <a class="btn ghost wide" href="#/uitslagen">Naar de uitslagen</a>`;
+  const el = document.getElementById('svhj');
+  try {
+    const rows = await api.playerOfYear(season);
+    el.innerHTML = rows.length
+      ? `<div class="card table-wrap"><table class="stand svhj">
+          <thead><tr><th>#</th><th class="l">Speler</th><th>Gem.</th><th>Wedstr.</th></tr></thead>
+          <tbody>${rows.map((r, i) => `<tr class="${i === 0 ? 'me' : ''}"><td>${i + 1}</td><td class="l">${i === 0 ? '🏆 ' : ''}${esc(r.player)}</td><td><b>${Number(r.avg).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b></td><td>${r.matches}</td></tr>`).join('')}</tbody>
+        </table></div>
+        <p class="muted small">Per wedstrijd telt het gemiddelde van alle stemmen; daarna het gemiddelde over de wedstrijden. Spelers zonder cijfer staan er nog niet in.</p>`
+      : '<p class="muted">Er zijn dit seizoen nog geen cijfers gegeven.</p>';
+  } catch (e) {
+    el.innerHTML = `<p class="note">${esc(notReady(e))}</p>`;
+  }
 }
 
 // ---------- Router ----------
@@ -655,6 +751,7 @@ const routes = [
   [/^\/elspeet-1$/, 'meer', () => viewTeam('elspeet-1')],
   [/^\/club$/, 'meer', viewClub],
   [/^\/bestuur$/, 'meer', viewBestuur],
+  [/^\/speler-van-het-jaar$/, 'meer', viewSpelerVanHetJaar],
   [/^\/sponsoren$/, 'meer', viewSponsoren],
   [/^\/agenda$/, 'meer', viewAgenda],
   [/^\/contact$/, 'meer', viewContact],
@@ -694,7 +791,7 @@ window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));
 
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('[data-match],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-cat],[data-photo],[data-share],[data-close]');
+  const t = e.target.closest('[data-match],[data-rate],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-cat],[data-photo],[data-share],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.ics) {
@@ -702,6 +799,7 @@ document.addEventListener('click', async (e) => {
     if (m) icsDownload({ title: `${m.home} – ${m.away}`, start: toDate(m.date, m.time), location: isOurs(m.home) ? 'Sportpark Op de Heide, Uddelerweg 100, Elspeet' : m.field, description: m.type });
     return;
   }
+  if (t.dataset.rate) return openRating(t.dataset.rate);
   if (t.dataset.match) return showMatch(t.dataset.match);
   if (t.dataset.agenda) {
     const a = (await api.clubData()).agenda.find((x) => x.date + x.title === t.dataset.agenda);

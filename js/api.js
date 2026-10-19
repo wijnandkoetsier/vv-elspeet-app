@@ -2,7 +2,7 @@
 // - Nieuws, verslagen en foto's: de standaard WordPress REST API (live).
 // - Programma, uitslagen, standen, teams, agenda, sponsors: /wp-json/vve/v1/app,
 //   met de momentopname in data/snapshot.json als terugval.
-import { SITE, APP_ENDPOINT } from './config.js';
+import { SITE, APP_ENDPOINT, SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 
 const WP = `${SITE}/wp-json/wp/v2`;
 const memo = new Map();
@@ -124,3 +124,39 @@ export function cleanHtml(htmlStr) {
   });
   return d.body.innerHTML;
 }
+
+// ---------- Spelerscijfers (Supabase) ----------
+
+const sbHeaders = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' };
+
+async function rpc(fn, args) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, { method: 'POST', headers: sbHeaders, body: JSON.stringify(args) });
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`;
+    try { const j = await res.json(); msg = j.message || msg; } catch { /* geen json */ }
+    const err = new Error(msg); err.status = res.status; throw err;
+  }
+  return res.json();
+}
+
+/** Een geheime, willekeurige stem-code per telefoon. */
+export function voterId() {
+  try {
+    let id = localStorage.getItem('vve.voter');
+    if (!id) { id = crypto.randomUUID(); localStorage.setItem('vve.voter', id); }
+    return id;
+  } catch {
+    return (voterId.fallback ||= crypto.randomUUID());
+  }
+}
+
+export async function ratingPlayers() {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rating_players?select=name&active=is.true&order=sort`, { headers: sbHeaders });
+  if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status}`), { status: res.status });
+  return (await res.json()).map((r) => r.name);
+}
+export const matchRatings = (matchKey) => rpc('match_ratings', { p_match_key: matchKey });
+export const myRatings = (matchKey) => rpc('my_ratings', { p_match_key: matchKey, p_voter: voterId() });
+export const submitRatings = (matchKey, matchDate, ratings) =>
+  rpc('submit_ratings', { p_match_key: matchKey, p_match_date: matchDate, p_voter: voterId(), p_ratings: ratings });
+export const playerOfYear = (season) => rpc('player_of_year', { p_season: season });

@@ -4,7 +4,7 @@ Een app voor leden, ouders, supporters en sponsors, gebouwd op de nieuwe website
 
 Het is een **aparte app naast Elspeet Fluit**: eigen naam, eigen icoon op het beginscherm, eigen repository.
 
-De app bevat **alleen deze onderdelen**: Programma en uitslagen, Nieuws, Wedstrijdverslagen, Media, Teams, Elspeet 1, Over de club, Bestuur & commissies, Sponsoren, Agenda en Contact. Al het andere (contributie, roosters, ledenshop, …) blijft alleen op de website.
+De app bevat **alleen deze onderdelen**: Programma en uitslagen, Nieuws, Wedstrijdverslagen, Media, Teams, Elspeet 1, Speler van het jaar, Over de club, Bestuur & commissies, Sponsoren, Agenda en Contact. Al het andere (contributie, roosters, ledenshop, …) blijft alleen op de website.
 
 Adres: **app.vv-elspeet.nl**.
 
@@ -34,6 +34,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 | **Media** | Instagram @vvelspeet, fotogalerij uit de mediabibliotheek (tik voor groot), laatste verslagen | WordPress (live) |
 | **Teams** | Alle 20 teams per leeftijdsgroep. Met ☆ volg je een team; het komt dan op Home. Per team: programma, uitslagen, stand en berichten uit de teamcategorie | Sportlink + WordPress |
 | **Elspeet 1** | Zelfde opbouw als de andere teams: teamfoto, volgen, programma, uitslagen, stand en verslagen | Sportlink + WordPress |
+| **Spelerscijfers & Speler van het jaar** | Bij gespeelde wedstrijden van Elspeet 1 geeft iedereen spelers een cijfer (1–10, halve punten, of – voor niet gespeeld). Stand per seizoen onder Meer | Supabase |
 | **Over de club** | Geschiedenis, sportpark en kerncijfers. Voor de rest een link naar de website | Site |
 | **Bestuur & commissies** | Hoofdbestuur, jeugdbestuur, VTC, TC Jeugd, commissies en vertrouwenspersonen, met tikbare e-mailadressen en een link naar het organogram | Site |
 | **Sponsoren** | Alle sponsors zoals in de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, 5 tot 3 sterren, scorebord, balsponsors en Vrienden van ESV. Logo's linken naar de sponsor. Daaronder de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |

@@ -419,3 +419,19 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 .bc-foto { display: block; width: 100%; padding: 0; border: 0; background: var(--lijn); border-radius: var(--radius); overflow: hidden; margin: 6px 0 10px; cursor: zoom-in; }
 .bc-foto img { display: block; width: 100%; height: auto; aspect-ratio: 900 / 691; object-fit: cover; }
 .commissie .bc-foto { margin: -14px -16px 8px; width: calc(100% + 32px); border-radius: var(--radius) var(--radius) 0 0; }
+
+/* Spelerscijfers */
+.cijfers { margin-top: 18px; }
+.cijfers h3 { font-size: 17px; margin: 0 0 8px; }
+.cijfer-rij { display: flex; align-items: center; gap: 10px; padding: 10px 14px; }
+.cijfer-rij > span { flex: 1; min-width: 0; font-weight: 600; }
+.cijfer { min-width: 44px; text-align: center; padding: 4px 8px; border-radius: var(--r-klein); background: var(--papier); font-variant-numeric: tabular-nums; }
+.cijfer.hoog { background: var(--groen-licht); color: var(--groen-donker); }
+.cijfer.laag { background: var(--rood-licht); color: var(--rood); }
+.cijferform h2 { font-size: 19px; margin: 4px 40px 6px 0; }
+.cijferform select {
+  font: inherit; font-weight: 700; min-width: 76px; padding: 8px 10px; border: 1px solid var(--lijn);
+  border-radius: var(--r-klein); background: var(--papier); text-align: center;
+}
+.cijferform .note.warn { margin: 0 0 12px; }
+.svhj td:nth-child(3) { font-size: 15px; }
