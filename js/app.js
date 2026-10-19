@@ -182,7 +182,6 @@ async function viewHome() {
     <figure class="luchtfoto"><img src="img/sportpark.jpg" alt="Luchtfoto van Sportpark Op de Heide" width="1080" height="606"></figure>
     <section class="welkom">
       <h1>Samen voetballen<br>op de Heide.</h1>
-      <p>Van kabouters tot veteranen: bij V.V. Elspeet speelt het hele dorp.</p>
     </section>
     ${next1 ? bigMatch(next1, 'Volgende wedstrijd · Elspeet 1') : ''}
     ${last1 ? `<a class="result-strip" href="#/elspeet-1">${(() => { const o = outcome(last1); return `<span class="tag ${o[2]}">${o[1]}</span><span>${esc(last1.home)} <b>${esc(last1.score.replace('-', '–'))}</b> ${esc(last1.away)}</span><span class="muted">Elspeet 1 →</span>`; })()}</a>` : ''}
