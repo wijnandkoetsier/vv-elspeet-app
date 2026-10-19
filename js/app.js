@@ -210,22 +210,115 @@ function slugOf(data, name) { return data.teams.find((t) => t.name === name)?.sl
 
 const GROUPS = [['', 'Alle'], ['Senioren', 'Senioren'], ['Junioren', 'Junioren'], ['Pupillen', 'Pupillen']];
 
+// ---------- Programma en uitslagen met filtermenu ----------
+// Filters: groep (senioren/junioren/pupillen), team en datum. Groep en team gelden voor
+// programma én uitslagen; de datum hoort bij één van beide, want de dagen verschillen.
+
+const TEAM_ORDER = (data, name) => { const i = data.teams.findIndex((t) => t.name === name); return i < 0 ? 999 : i; };
+
+function getFilter(mode) {
+  return { group: store.get('group', ''), team: store.get('fteam', ''), date: store.get(`fdate-${mode}`, '') };
+}
+function setFilter(mode, f) {
+  store.set('group', f.group); store.set('fteam', f.team); store.set(`fdate-${mode}`, f.date);
+}
+
+function baseList(data, mode) {
+  return data.matches.filter((m) => (mode === 'uitslagen' ? m.score : !m.score && toDate(m.date) >= startOfToday()));
+}
+
+function applyFilter(list, f, { skipDate = false } = {}) {
+  return list.filter((m) => (!f.group || m.group === f.group) && (!f.team || m.team === f.team) && (skipDate || !f.date || m.date === f.date));
+}
+
+function filterLabel(f) {
+  const parts = [];
+  if (f.group) parts.push(f.group);
+  if (f.team) parts.push(f.team);
+  if (f.date) parts.push(short(toDate(f.date)));
+  return parts;
+}
+
 async function viewProgramma(mode = 'programma') {
   setTitle(mode === 'uitslagen' ? 'Uitslagen' : 'Programma');
   const data = await api.clubData();
-  const group = store.get('group', '');
-  const list = data.matches.filter((m) => (!group || m.group === group) && (mode === 'uitslagen' ? m.score : !m.score && toDate(m.date) >= startOfToday()));
+  const base = baseList(data, mode);
+  const f = getFilter(mode);
+  // Een bewaarde datum die niet meer voorkomt (bijv. voorbij), negeren we.
+  if (f.date && !base.some((m) => m.date === f.date)) { f.date = ''; setFilter(mode, f); }
+  const list = applyFilter(base, f);
+  const actief = filterLabel(f);
   const af = data.cancelled?.length ? `<p class="note warn"><b>Afgelast:</b> ${data.cancelled.map(esc).join(', ')}</p>` : '';
   $view.innerHTML = `
     <h1 class="paginakop">Wedstrijden</h1>
     <div class="seg"><a href="#/programma" class="${mode === 'programma' ? 'on' : ''}">Programma</a><a href="#/uitslagen" class="${mode === 'uitslagen' ? 'on' : ''}">Uitslagen</a></div>
-    ${chips(GROUPS, group, 'data-group')}
+    <div class="filterbalk">
+      <button type="button" class="filterknop ${actief.length ? 'aan' : ''}" data-filter="${mode}">
+        <span aria-hidden="true">☰</span> Filter${actief.length ? ` <b class="teller">${actief.length}</b>` : ''}
+      </button>
+      ${actief.length ? `<span class="filter-tekst">${actief.map(esc).join(' · ')}</span><button type="button" class="link wis" data-filter-wis="${mode}">Wis</button>` : `<span class="filter-tekst muted">Alle teams en datums</span>`}
+    </div>
     ${af}
-    ${list.length ? groupByDate(list, mode === 'uitslagen') : `<p class="muted pad">Geen wedstrijden gevonden.</p>`}
-    ${mode === 'uitslagen' && data.standings['Elspeet 1'] ? section('Stand Elspeet 1', '#/elspeet-1', 'Elspeet 1') + standTable(data.standings['Elspeet 1']) : ''}
-    <p class="muted small">Co = competitie · Be = beker · Oe = oefenwedstrijd. Tik op een wedstrijd voor details.</p>
+    ${list.length ? groupByDate(list, mode === 'uitslagen') : `<p class="muted pad">Geen wedstrijden gevonden met deze filters.</p>`}
+    ${mode === 'uitslagen' && data.standings['Elspeet 1'] && (!f.team || f.team === 'Elspeet 1') ? section('Stand Elspeet 1', '#/elspeet-1', 'Elspeet 1') + standTable(data.standings['Elspeet 1']) : ''}
+    <p class="muted small">Tik op een wedstrijd voor details.</p>
     ${sourceNote(data)}`;
 }
+
+// Het filtermenu werkt met een concept; pas bij "Toon" wordt het opgeslagen.
+let filterConcept = null;
+
+async function openFilter(mode) {
+  filterConcept = { mode, ...getFilter(mode) };
+  await renderFilter();
+}
+
+async function renderFilter() {
+  const data = await api.clubData();
+  const f = filterConcept;
+  const base = baseList(data, f.mode);
+  // Teams binnen de gekozen groep; datums waarop (met groep en team) echt gespeeld wordt.
+  const teams = [...new Set(base.filter((m) => !f.group || m.group === f.group).map((m) => m.team))]
+    .sort((a, b) => TEAM_ORDER(data, a) - TEAM_ORDER(data, b));
+  if (f.team && !teams.includes(f.team)) f.team = '';
+  const dates = [...new Set(applyFilter(base, f, { skipDate: true }).map((m) => m.date))].sort();
+  if (f.mode === 'uitslagen') dates.reverse();
+  if (f.date && !dates.includes(f.date)) f.date = '';
+  const count = applyFilter(base, f).length;
+  const chip = (attr, val, label, on) => `<button type="button" class="chip ${on ? 'on' : ''}" ${attr}="${esc(val)}" aria-pressed="${on}">${esc(label)}</button>`;
+  const html = `
+    <div class="filtermenu">
+      <h2>Filter ${f.mode === 'uitslagen' ? 'uitslagen' : 'programma'}</h2>
+      <h3>Groep</h3>
+      <div class="chips wrap">${GROUPS.map(([v, l]) => chip('data-f-group', v, l, f.group === v)).join('')}</div>
+      <h3>Team</h3>
+      <div class="chips wrap">${chip('data-f-team', '', 'Alle teams', !f.team)}${teams.map((t) => chip('data-f-team', t, /^Elspeet \d+$/.test(t) ? t : t.replace(/^Elspeet /, ''), f.team === t)).join('')}</div>
+      <h3>Datum</h3>
+      <div class="chips wrap">${chip('data-f-date', '', 'Alle datums', !f.date)}${dates.map((d) => chip('data-f-date', d, short(toDate(d)), f.date === d)).join('')}</div>
+      <div class="filter-acties">
+        <button type="button" class="btn ghost" data-f-reset>Wis alles</button>
+        <button type="button" class="btn" data-f-apply ${count ? '' : 'disabled'}>${count ? `Toon ${count} wedstrijd${count === 1 ? '' : 'en'}` : 'Geen wedstrijden'}</button>
+      </div>
+    </div>`;
+  const body = $sheet.querySelector('.sheet-body .filtermenu');
+  if (body && !$sheet.hidden) body.outerHTML = html; else openSheet(html);
+}
+
+$sheet.addEventListener('click', (e) => {
+  if (!filterConcept) return;
+  const t = e.target.closest('[data-f-group],[data-f-team],[data-f-date],[data-f-reset],[data-f-apply]');
+  if (!t) return;
+  e.stopPropagation();
+  const f = filterConcept;
+  if (t.dataset.fGroup !== undefined) f.group = t.dataset.fGroup;
+  else if (t.dataset.fTeam !== undefined) f.team = t.dataset.fTeam;
+  else if (t.dataset.fDate !== undefined) f.date = t.dataset.fDate;
+  else if (t.dataset.fReset !== undefined) { f.group = ''; f.team = ''; f.date = ''; }
+  else if (t.dataset.fApply !== undefined) {
+    setFilter(f.mode, f); filterConcept = null; closeSheet(); route(); return;
+  }
+  renderFilter();
+});
 
 async function viewNieuws(cat = '') {
   const isVerslagen = cat === CAT_VERSLAGEN;
@@ -495,7 +588,7 @@ function openSheet(html) {
   $sheet.hidden = false;
   document.body.classList.add('noscroll');
 }
-function closeSheet() { $sheet.hidden = true; $sheet.innerHTML = ''; document.body.classList.remove('noscroll'); }
+function closeSheet() { filterConcept = null; $sheet.hidden = true; $sheet.innerHTML = ''; document.body.classList.remove('noscroll'); }
 
 async function findMatch(key) {
   return (await api.clubData()).matches.find((m) => m.date + m.time + m.home === key);
@@ -572,7 +665,7 @@ window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));
 
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('[data-match],[data-ics],[data-agenda],[data-fav],[data-group],[data-cat],[data-photo],[data-share],[data-close]');
+  const t = e.target.closest('[data-match],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-cat],[data-photo],[data-share],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.ics) {
@@ -587,7 +680,8 @@ document.addEventListener('click', async (e) => {
     return;
   }
   if (t.dataset.fav) { toggleFav(t.dataset.fav); return route(); }
-  if (t.dataset.group !== undefined) { store.set('group', t.dataset.group); return route(); }
+  if (t.dataset.filter) return openFilter(t.dataset.filter);
+  if (t.dataset.filterWis) { setFilter(t.dataset.filterWis, { group: '', team: '', date: '' }); return route(); }
   if (t.dataset.cat !== undefined) { location.hash = t.dataset.cat ? `#/nieuws/${t.dataset.cat}` : '#/nieuws'; return; }
   if (t.dataset.photo) return openSheet(`<img class="foto-groot" src="${esc(t.dataset.photo)}" alt="${esc(t.dataset.alt)}">${t.dataset.alt ? `<p class="muted">${esc(t.dataset.alt)}</p>` : ''}`);
   if (t.dataset.share) {
