@@ -179,10 +179,10 @@ async function viewHome() {
   const logos = [...data.sponsors.logos].sort(() => Math.random() - 0.5).slice(0, 8);
 
   $view.innerHTML = `
-    <figure class="luchtfoto"><img src="img/sportpark.jpg" alt="Luchtfoto van Sportpark Op de Heide" width="1080" height="606"></figure>
-    <section class="welkom">
-      <h1>Samen voetballen<br>op de Heide.</h1>
-    </section>
+    <figure class="luchtfoto" id="luchtfoto">
+      <img src="img/sportpark.jpg" alt="Luchtfoto van Sportpark Op de Heide" width="1080" height="606">
+      <figcaption class="lf-brand"><img src="icons/logo.png" alt=""><span><b>V.V. Elspeet</b><small>Op de Heide · sinds 1953</small></span></figcaption>
+    </figure>
     ${next1 ? bigMatch(next1, 'Volgende wedstrijd · Elspeet 1') : ''}
     ${last1 ? `<a class="result-strip" href="#/elspeet-1">${(() => { const o = outcome(last1); return `<span class="tag ${o[2]}">${o[1]}</span><span>${esc(last1.home)} <b>${esc(last1.score.replace('-', '–'))}</b> ${esc(last1.away)}</span><span class="muted">Elspeet 1 →</span>`; })()}</a>` : ''}
     <div class="tiles">
@@ -198,6 +198,7 @@ async function viewHome() {
     ${section('Onze sponsors', '#/sponsoren')}
     <div class="logo-strip">${logos.map((l) => `<img src="${esc(data.sponsors.logoBase + l)}" alt="" loading="lazy">`).join('')}</div>
     ${sourceNote(data)}`;
+  updateHeader();
   fillPosts(document.getElementById('home-news'), { perPage: 3 });
 }
 
@@ -531,6 +532,9 @@ async function route() {
   const hit = routes.find(([re]) => re.test(path)) || routes[0];
   const [re, tab, fn, detail] = hit;
   document.querySelectorAll('.tabbar a').forEach((a) => a.classList.toggle('on', a.dataset.tab === tab));
+  // Op Home staat de header pas in beeld als je voorbij de luchtfoto scrolt.
+  document.body.classList.toggle('home', fn === viewHome);
+  updateHeader();
   // Terugknop op detailschermen en op alles wat onder "Meer" hangt.
   $back.hidden = path === '/meer' || !(detail || tab === 'meer');
   $view.classList.remove('in'); void $view.offsetWidth; $view.classList.add('in');
@@ -542,6 +546,13 @@ async function route() {
     $view.innerHTML = errorBox();
   }
 }
+
+function updateHeader() {
+  const foto = document.getElementById('luchtfoto');
+  const voorbij = !foto || foto.getBoundingClientRect().bottom < 72;
+  document.body.classList.toggle('kop-zichtbaar', !document.body.classList.contains('home') || voorbij);
+}
+window.addEventListener('scroll', updateHeader, { passive: true });
 
 window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));

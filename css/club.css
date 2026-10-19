@@ -88,11 +88,27 @@ main.in { animation: in .18s ease-out; }
 .daykop { font-size: 15px; margin: 22px 0 8px; color: var(--inkt-2); }
 .daykop::first-letter { text-transform: uppercase; }
 
+/* Home: luchtfoto bovenaan met logo; de header schuift in beeld zodra je voorbij de foto scrolt. */
 .luchtfoto { margin: -16px -16px 16px; position: relative; }
-.luchtfoto img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
-.welkom { padding: 0 0 16px; }
-.welkom h1 { font-size: 34px; }
-.welkom p { color: var(--grijs); margin-top: 8px; }
+.luchtfoto > img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.luchtfoto::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(15, 16, 14, 0) 45%, rgba(15, 16, 14, .78) 100%);
+}
+.lf-brand {
+  position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 1;
+  display: flex; align-items: center; gap: 12px; color: #fff;
+}
+.lf-brand img { width: 60px; height: 62px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .45)); }
+.lf-brand b { display: block; font-family: var(--display); font-size: 30px; line-height: 1.05; letter-spacing: -.02em; text-shadow: 0 2px 10px rgba(0, 0, 0, .5); }
+.lf-brand small { color: #e6e9df; font-size: 14px; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+
+body.home .topbar {
+  position: fixed; left: 0; right: 0;
+  transform: translateY(-110%); transition: transform .2s ease-out;
+}
+body.home.kop-zichtbaar .topbar { transform: none; }
+@media (prefers-reduced-motion: reduce) { body.home .topbar { transition: none; } }
 
 /* Kaarten en lijsten */
 .card { background: var(--kaart); border: 1px solid var(--lijn); border-radius: var(--radius); box-shadow: var(--schaduw); }
