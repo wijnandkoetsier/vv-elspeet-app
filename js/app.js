@@ -84,28 +84,51 @@ function icsDownload({ title, start, minutes = 105, location = '', description =
 
 // ---------- Bouwstenen ----------
 
+// Categorie zoals in Elspeet Fluit: "Elspeet JO11-1" → O11, "Elspeet 2" → 2e, "Elspeet VR1" → VR1.
+function categoryOf(team) {
+  let m = team.match(/\b[JM]?O\s?(\d{1,2})(?=-|\b|[A-Z])/i);
+  if (m) return `O${Number(m[1])}`;
+  if (/30\+/.test(team)) return 'VR30+';
+  if (/\bVR\s?\d|vrouwen/i.test(team)) return 'VR1';
+  if (/4[05]\+/.test(team)) return '40+';
+  if (/35\+/.test(team)) return '35+';
+  if (/kabouter/i.test(team)) return 'Kab';
+  m = team.match(/(\d+)\s*$/);
+  return m ? `${Number(m[1])}e` : '';
+}
+
+// Wedstrijdregel in de stijl van Elspeet Fluit: groene tijd, teams onder elkaar, label en details, pijltje.
 function matchRow(m, { showDate = false } = {}) {
   const o = outcome(m);
   const d = toDate(m.date, m.time);
-  return `<button class="match" type="button" data-match="${esc(m.date + m.time + m.home)}">
-    <span class="m-when">${showDate ? `<small>${short(d)}</small>` : ''}<b>${esc(m.time)}</b></span>
-    <span class="m-teams">
-      <span class="${isOurs(m.home) ? 'ours' : ''}">${esc(m.home)}</span>
-      <span class="${isOurs(m.away) ? 'ours' : ''}">${esc(m.away)}</span>
+  const plek = isOurs(m.home) ? (m.field || 'Thuis') : (m.field ? `Uit · ${m.field}` : 'Uit');
+  const sub = [
+    `<span class="label">${esc(categoryOf(m.team))}</span>`,
+    esc(plek),
+    m.type !== 'Competitie' ? esc(m.type) : '',
+    m.referee && !m.score ? esc(m.referee) : '',
+  ].filter(Boolean).join('<span class="sep">·</span>');
+  return `<button class="mrow" type="button" data-match="${esc(m.date + m.time + m.home)}">
+    <span class="t">${esc(m.time)}${showDate ? `<small>${short(d)}</small>` : ''}</span>
+    <span class="body">
+      <span class="teams"><span>${esc(m.home)}</span><span>${esc(m.away)}</span></span>
+      <span class="sub">${sub}</span>
     </span>
-    ${m.score
-      ? `<span class="m-score ${o[2]}"><b>${esc(m.score.replace('-', '–'))}</b><small>${o[0]}</small></span>`
-      : `<span class="m-meta"><small>${esc(m.field || homeAway(m))}</small>${m.type !== 'Competitie' ? `<span class="tag">${esc(m.type)}</span>` : ''}</span>`}
+    <span class="end">${o ? `<span class="m-score ${o[2]}"><b>${esc(m.score.replace('-', '–'))}</b><small>${o[0]}</small></span>` : ''}<span class="chev" aria-hidden="true">›</span></span>
   </button>`;
 }
 
 function groupByDate(list, desc = false) {
   const by = new Map();
-  for (const m of [...list].sort((a, b) => (desc ? -1 : 1) * ((a.date + a.time).localeCompare(b.date + b.time)))) {
+  // Dagen nieuw→oud bij uitslagen, maar binnen een dag altijd op aanvangstijd.
+  for (const m of [...list].sort((a, b) => (desc ? -1 : 1) * a.date.localeCompare(b.date) || a.time.localeCompare(b.time))) {
     if (!by.has(m.date)) by.set(m.date, []);
     by.get(m.date).push(m);
   }
-  return [...by].map(([date, ms]) => `<h3 class="daykop">${long(toDate(date))}</h3><div class="card list">${ms.map((m) => matchRow(m)).join('')}</div>`).join('');
+  return [...by].map(([date, ms]) => `<section class="card day-list">
+      <header class="day-head"><h2>${long(toDate(date))}</h2><span class="pill">${ms.length} wedstrijd${ms.length === 1 ? '' : 'en'}</span></header>
+      ${ms.map((m) => matchRow(m)).join('')}
+    </section>`).join('');
 }
 
 function bigMatch(m, label) {

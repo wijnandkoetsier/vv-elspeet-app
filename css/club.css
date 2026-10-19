@@ -119,17 +119,37 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 .row-kop { display: flex; justify-content: space-between; padding: 10px 14px; font-size: 14px; }
 .row-kop a { text-decoration: none; font-weight: 600; }
 
-.match {
-  display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 10px;
-  width: 100%; padding: 12px 14px; background: none; border: 0; text-align: left; cursor: pointer;
+/* Wedstrijdlijst per speeldag, zoals in Elspeet Fluit */
+.day-list { padding: 0; overflow: hidden; margin-top: 14px; }
+.card.day-list + .card.day-list { margin-top: 14px; }
+.day-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 14px; background: var(--papier); border-bottom: 1px solid var(--lijn);
 }
-.match:active { background: var(--papier); }
-.m-when { display: grid; font-variant-numeric: tabular-nums; }
-.m-when small { color: var(--grijs); font-size: 12px; }
-.m-teams { display: grid; gap: 2px; min-width: 0; }
-.m-teams span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.m-teams .ours { font-weight: 700; }
-.m-meta { display: grid; justify-items: end; gap: 4px; color: var(--grijs); font-size: 12px; text-align: right; }
+.day-head h2 { margin: 0; font-family: var(--font); font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+.pill {
+  flex: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+  padding: 4px 10px; border-radius: 999px; background: var(--kaart); color: var(--grijs); box-shadow: inset 0 0 0 1px var(--lijn);
+}
+.mrow {
+  display: grid; grid-template-columns: 3.4em minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  width: 100%; padding: 16px 14px; background: none; border: 0; text-align: left; cursor: pointer; font: inherit; color: inherit;
+}
+.mrow:active { background: var(--papier); }
+.list > .mrow + .mrow, .day-list > .mrow + .mrow { border-top: 8px solid var(--papier); }
+.mrow .t { font-weight: 800; color: var(--groen-donker); font-variant-numeric: tabular-nums; font-size: 17px; text-align: center; }
+.mrow .t small { display: block; font-weight: 500; font-size: 11px; color: var(--grijs); white-space: nowrap; }
+.mrow .body { min-width: 0; }
+.mrow .teams { display: grid; font-weight: 600; font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.mrow .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; margin-top: 4px; font-size: 14px; color: var(--grijs); }
+.label {
+  display: inline-block; padding: 1px 6px; border-radius: 4px;
+  font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap;
+  color: var(--grijs); box-shadow: inset 0 0 0 1px var(--lijn);
+}
+.sep { color: var(--lijn); }
+.mrow .end { display: flex; align-items: center; gap: 10px; }
+.chev { font-size: 24px; color: var(--grijs); line-height: 1; }
 .m-score { display: grid; justify-items: center; min-width: 48px; padding: 4px 8px; border-radius: var(--r-klein); font-variant-numeric: tabular-nums; }
 .m-score small { font-size: 11px; font-weight: 700; }
 .win { background: var(--groen-licht); color: var(--groen-donker); }
