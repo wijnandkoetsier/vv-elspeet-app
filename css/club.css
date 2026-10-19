@@ -400,3 +400,19 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 .tf-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
 .tf-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--lijn); transition: background .15s; }
 .tf-dots span.on { background: var(--inkt); }
+
+/* Bestuur & commissies */
+.bc { margin-top: 30px; }
+.bc .kicker { color: var(--groen-donker); font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: .05em; }
+.bc h2 { font-size: 24px; margin: 2px 0 8px; }
+.bc h3 { font-size: 16px; margin: 16px 0 8px; }
+.bc p { color: var(--inkt-2); }
+.persoon { display: flex; gap: 12px; align-items: center; padding: 12px 14px; }
+.persoon > span:last-child { display: grid; min-width: 0; }
+.persoon small { color: var(--grijs); font-size: 13px; }
+.avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--groen-licht); color: var(--groen-donker); font-weight: 800; font-size: 14px; }
+.mail { color: var(--groen-donker); font-weight: 600; font-size: 14px; text-decoration: none; overflow-wrap: anywhere; }
+.bc-mail { margin-top: 10px; }
+.commissie { padding: 14px 16px; display: grid; gap: 4px; }
+.commissie h3 { margin: 0; }
+.commissie p { margin: 2px 0 6px; font-size: 15px; }

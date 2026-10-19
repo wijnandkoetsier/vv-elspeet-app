@@ -1385,5 +1385,231 @@
     "Advertentie in het clubblad en/of deelname aan de \"Vrienden van ESV\"."
    ]
   ]
+ },
+ "bestuur": {
+  "intro": "Wie doet wat bij v.v. Elspeet: het bestuur, de commissies en alle aanspreekpunten op een rij. V.v. Elspeet draait op vrijwilligers. Het bestuur en de commissies zorgen er samen voor dat er elke week gevoetbald, getraind en georganiseerd kan worden.",
+  "organogram": "https://www.calameo.com/read/0074929194861d87aecc3?page=1",
+  "sections": [
+   {
+    "id": "hoofdbestuur",
+    "kicker": "Bestuur",
+    "title": "Hoofdbestuur",
+    "text": [
+     "Het bestuur van v.v. Elspeet bestaat uit acht bestuursleden. Het dagelijks bestuur vergadert maandelijks over de gang van zaken; het voltallige bestuur komt elk kwartaal bijeen. De jaarlijkse Algemene Ledenvergadering vindt normaal gesproken plaats op de derde maandag van november en is toegankelijk voor alle leden vanaf 16 jaar."
+    ],
+    "groups": [
+     {
+      "title": "Dagelijks bestuur",
+      "people": [
+       {
+        "name": "Ronny van der Horst",
+        "role": "Voorzitter",
+        "email": "voorzitter@vv-elspeet.nl"
+       },
+       {
+        "name": "Mark Spijkerboer",
+        "role": "Jeugdvoorzitter",
+        "email": "jeugdvoorzitter@vv-elspeet.nl"
+       },
+       {
+        "name": "Martin Kieft",
+        "role": "Secretaris",
+        "email": "secretariaat@vv-elspeet.nl"
+       },
+       {
+        "name": "Hans Hop",
+        "role": "Penningmeester",
+        "email": "penningmeester@vv-elspeet.nl"
+       }
+      ]
+     },
+     {
+      "title": "Algemeen bestuur",
+      "people": [
+       {
+        "name": "Gerrit de Bruin",
+        "role": "Wedstrijdsecretariaat",
+        "email": "wedstrijdzaken@vv-elspeet.nl"
+       },
+       {
+        "name": "Christiaan Kroes",
+        "role": "Wedstrijdsecretariaat",
+        "email": "wedstrijdzaken@vv-elspeet.nl"
+       },
+       {
+        "name": "Henri van Asselt",
+        "role": "Kantinezaken",
+        "email": "kantine@vv-elspeet.nl"
+       },
+       {
+        "name": "Kor Lokhorst",
+        "role": "Sponsorcommissie · algemeen bestuurslid",
+        "email": ""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "jeugdbestuur",
+    "kicker": "Jeugd",
+    "title": "Jeugdbestuur",
+    "text": [
+     "Het jeugdbestuur behartigt de belangen van de jeugdafdeling: van teamindelingen en toernooien tot activiteiten naast het veld."
+    ],
+    "groups": [
+     {
+      "people": [
+       {
+        "name": "Mark Spijkerboer",
+        "role": "Jeugdvoorzitter",
+        "email": "jeugdvoorzitter@vv-elspeet.nl"
+       },
+       {
+        "name": "Wilco Kok",
+        "role": "Algemeen lid",
+        "email": ""
+       },
+       {
+        "name": "Gerald Wolfsen",
+        "role": "Algemeen lid",
+        "email": ""
+       },
+       {
+        "name": "Werner Pluim",
+        "role": "Algemeen lid",
+        "email": ""
+       }
+      ]
+     }
+    ],
+    "email": "jeugdbestuur@vv-elspeet.nl"
+   },
+   {
+    "id": "vtc",
+    "kicker": "Voetbaltechnisch",
+    "title": "Voetbal Technische Commissie (VTC)",
+    "text": [
+     "De VTC is een ondersteunend orgaan richting trainers, leiders en spelers voor alle voetbaltechnische zaken binnen v.v. Elspeet. De commissie bewaakt de balans tussen prestatie- en breedtesport: systematische ontwikkeling van spelers, doorstroming van recreatie- naar selectieteams en elke speler het maximale uit zijn of haar spel laten halen.",
+     "Uitgangspunten: plezier in het spel voorop, vorming door voetbal (discipline, teamwork en respect) en een verantwoorde selectie op basis van talent en motivatie.",
+     "De VTC bestaat uit Marius van Asselt, Bert Stoffer, Jan de Ruiter en Kees Pluim (jr.)."
+    ],
+    "facts": [
+     [
+      "Ambities Elspeet 1",
+      "Speelt stabiel mee in de 3e klasse."
+     ],
+     [
+      "Ambities Elspeet 2",
+      "Speelt stabiel mee in de reserve 2e klasse."
+     ],
+     [
+      "Ambities jeugdteams",
+      "Spelen stabiel mee in de 2e klasse van hun leeftijdscategorie."
+     ]
+    ],
+    "email": "vtc@vv-elspeet.nl"
+   },
+   {
+    "id": "tcjeugd",
+    "kicker": "Jeugdopleiding",
+    "title": "Technische Commissie Jeugd",
+    "text": [
+     "De TC Jeugd beheert het voetbaltechnische deel van de jeugdafdeling: de werving, selectie en begeleiding van jeugdtrainers en het volgen van de ontwikkeling van jeugdspelers."
+    ],
+    "groups": [
+     {
+      "people": [
+       {
+        "name": "Herald Hop",
+        "role": "TC Jeugd",
+        "email": ""
+       },
+       {
+        "name": "Mark Spijkerboer",
+        "role": "TC Jeugd",
+        "email": ""
+       },
+       {
+        "name": "Karl Pul",
+        "role": "TC Jeugd",
+        "email": ""
+       },
+       {
+        "name": "Jurgen Kroes",
+        "role": "TC Jeugd",
+        "email": ""
+       },
+       {
+        "name": "Werner Pluim",
+        "role": "TC Jeugd",
+        "email": ""
+       }
+      ]
+     }
+    ],
+    "email": "tcjeugd@vv-elspeet.nl"
+   },
+   {
+    "id": "commissies",
+    "kicker": "Rondom het veld",
+    "title": "Commissies",
+    "committees": [
+     {
+      "title": "Actiecomité",
+      "text": "Opgericht in februari 2000, in aanloop naar het 50-jarig jubileum van de club. Het comité telt inmiddels tien leden en houdt met de opbrengst van zijn evenementen de vereniging gezond én organiseert extra's voor alle leden. Op het programma staan onder meer: de blinde poule, veld- en kantineverloting, twee darttoernooien per jaar, de jaarlijkse kerstverloting, het kroegentoernooi (sinds 2005), de jaarlijkse feestavond en klaverjassen of pokeren bij een KNVB-afgelasting (inschrijven 14:00 uur, start 14:30 uur).",
+      "email": "actiecomite@vv-elspeet.nl"
+     },
+     {
+      "title": "Sponsorcommissie",
+      "text": "Werkt vanuit een gestructureerde aanpak aan gelijkwaardige partnerschappen met bedrijven: een win-winsituatie op basis van eerlijkheid en transparantie. Alle pakketten — van 1 ster tot hoofdsponsor — vind je op de sponsorpagina.",
+      "link": [
+       "Naar sponsoren",
+       "#/sponsoren"
+      ]
+     },
+     {
+      "title": "Presentatiegids",
+      "text": "Elk seizoen verschijnt de digitale presentatiegids met alle teams, sponsors en verhalen. De edities vanaf 2018/2019 tot en met 2025/2026 zijn online terug te lezen.",
+      "email": "presentatiegids@vv-elspeet.nl"
+     },
+     {
+      "title": "Activiteitencommissie Jeugd",
+      "text": "Organiseert door het seizoen heen activiteiten voor de jeugdleden, naast het voetballen om."
+     },
+     {
+      "title": "Webteam",
+      "text": "Richard van den Hoorn en Thomas van den Hoorn beheren de website — sinds 2018 volledig responsive voor alle schermformaten. Tips of foutje gezien? Mail het webteam.",
+      "email": "webteam@vv-elspeet.nl"
+     }
+    ]
+   },
+   {
+    "id": "vertrouwenspersonen",
+    "kicker": "Veilig sporten",
+    "title": "Vertrouwenspersonen",
+    "text": [
+     "Bij v.v. Elspeet moet iedereen veilig kunnen sporten. Onze vertrouwenspersonen luisteren naar zorgen en klachten, kijken naar mogelijkheden voor bemiddeling, bepalen in overleg de vervolgstappen en verwijzen zo nodig door naar hulporganisaties. Ze geven daarnaast voorlichting aan trainers over het herkennen van signalen — en hebben altijd een geheimhoudingsplicht.",
+     "Stuur een mail met je naam en eventueel een korte omschrijving van je vraag of probleem (niet verplicht). Alice of Ilona neemt dan per mail contact op, bijvoorbeeld om een afspraak te maken."
+    ],
+    "groups": [
+     {
+      "people": [
+       {
+        "name": "Ilona Koetsier",
+        "role": "Vertrouwenspersoon",
+        "email": "vertrouwenspersoon@vv-elspeet.nl"
+       },
+       {
+        "name": "Alice van de Steeg",
+        "role": "Vertrouwenspersoon",
+        "email": "vertrouwenspersoon@vv-elspeet.nl"
+       }
+      ]
+     }
+    ],
+    "email": "vertrouwenspersoon@vv-elspeet.nl"
+   }
+  ]
  }
 }

@@ -495,6 +495,29 @@ function sponsorLogo(base, l) {
   return l.url ? `<a class="sp-logo" href="${esc(l.url)}" target="_blank" rel="noopener" title="${esc(l.name)}">${img}</a>` : `<span class="sp-logo" title="${esc(l.name)}">${img}</span>`;
 }
 
+// Bestuur & commissies: zelfde inhoud als de pagina op de website, met tikbare e-mailadressen.
+async function viewBestuur() {
+  setTitle('Bestuur & commissies');
+  const b = (await api.clubData()).bestuur;
+  const mail = (e) => `<a class="mail" href="mailto:${esc(e)}">${esc(e)}</a>`;
+  const persoon = (p) => `<div class="persoon"><span class="avatar" aria-hidden="true">${esc(p.name.split(' ').map((w) => w[0]).filter((c) => /[A-Z]/.test(c)).slice(0, 2).join(''))}</span>
+    <span><b>${esc(p.name)}</b><small>${esc(p.role)}</small>${p.email ? mail(p.email) : ''}</span></div>`;
+  const blok = (s) => `<section class="bc" id="bc-${esc(s.id)}">
+      <small class="kicker">${esc(s.kicker)}</small><h2>${esc(s.title)}</h2>
+      ${(s.text || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${(s.groups || []).map((g) => `${g.title ? `<h3>${esc(g.title)}</h3>` : ''}<div class="card list">${g.people.map(persoon).join('')}</div>`).join('')}
+      ${s.facts ? `<div class="card list">${s.facts.map(([k, v]) => `<div class="kv"><span class="muted">${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>` : ''}
+      ${(s.committees || []).map((c) => `<div class="card commissie"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p>${c.email ? mail(c.email) : ''}${c.link ? `<a class="mail" href="${esc(c.link[1])}">${esc(c.link[0])} →</a>` : ''}</div>`).join('')}
+      ${s.email ? `<p class="bc-mail">${mail(s.email)}</p>` : ''}
+    </section>`;
+  $view.innerHTML = `
+    <h1 class="paginakop">Bestuur & commissies</h1>
+    <p class="lead">${esc(b.intro)}</p>
+    <div class="chips">${b.sections.map((s) => `<button type="button" class="chip" data-jump="bc-${esc(s.id)}">${esc(s.title.replace(/ \(VTC\)$/, '').replace('Voetbal Technische Commissie', 'VTC').replace('Technische Commissie Jeugd', 'TC Jeugd'))}</button>`).join('')}</div>
+    <a class="btn ghost wide" href="${esc(b.organogram)}" target="_blank" rel="noopener">Bekijk het organogram</a>
+    ${b.sections.map(blok).join('')}`;
+}
+
 // Zelfde indeling als de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, sterren, scorebord, bal- en vriendensponsors.
 async function viewSponsoren() {
   setTitle('Sponsoren');
@@ -564,6 +587,7 @@ function viewMeer() {
     ['#/media', 'Media', "Foto's, video's en Instagram"],
     ['#/agenda', 'Agenda', 'Activiteiten van de club'],
     ['#/club', 'Over de club', 'Geschiedenis en sportpark'],
+    ['#/bestuur', 'Bestuur & commissies', 'Wie doet wat bij de club'],
     ['#/sponsoren', 'Sponsoren', 'Onze partners en pakketten'],
     ['#/contact', 'Contact', 'Adres, kantine en route'],
   ];
@@ -625,6 +649,7 @@ const routes = [
   [/^\/teams\/([\w-]+)$/, 'teams', (s) => viewTeam(s), true],
   [/^\/elspeet-1$/, 'meer', () => viewTeam('elspeet-1')],
   [/^\/club$/, 'meer', viewClub],
+  [/^\/bestuur$/, 'meer', viewBestuur],
   [/^\/sponsoren$/, 'meer', viewSponsoren],
   [/^\/agenda$/, 'meer', viewAgenda],
   [/^\/contact$/, 'meer', viewContact],
@@ -664,7 +689,7 @@ window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));
 
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('[data-match],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-cat],[data-photo],[data-share],[data-close]');
+  const t = e.target.closest('[data-match],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-cat],[data-photo],[data-share],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.ics) {
@@ -679,6 +704,11 @@ document.addEventListener('click', async (e) => {
     return;
   }
   if (t.dataset.fav) { toggleFav(t.dataset.fav); return route(); }
+  if (t.dataset.jump) {
+    const el = document.getElementById(t.dataset.jump);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 90, behavior: 'smooth' });
+    return;
+  }
   if (t.dataset.filter) return openFilter(t.dataset.filter);
   if (t.dataset.filterWis) { setFilter(t.dataset.filterWis, { group: '', team: '', date: '' }); return route(); }
   if (t.dataset.cat !== undefined) { location.hash = t.dataset.cat ? `#/nieuws/${t.dataset.cat}` : '#/nieuws'; return; }

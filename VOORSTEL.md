@@ -4,7 +4,7 @@ Een app voor leden, ouders, supporters en sponsors, gebouwd op de nieuwe website
 
 Het is een **aparte app naast Elspeet Fluit**: eigen naam, eigen icoon op het beginscherm, eigen repository.
 
-De app bevat **alleen deze tien onderdelen**: Programma en uitslagen, Nieuws, Wedstrijdverslagen, Media, Teams, Elspeet 1, Over de club, Sponsoren, Agenda en Contact. Al het andere (bestuur, contributie, roosters, ledenshop, …) blijft alleen op de website.
+De app bevat **alleen deze onderdelen**: Programma en uitslagen, Nieuws, Wedstrijdverslagen, Media, Teams, Elspeet 1, Over de club, Bestuur & commissies, Sponsoren, Agenda en Contact. Al het andere (contributie, roosters, ledenshop, …) blijft alleen op de website.
 
 Adres: **app.vv-elspeet.nl**.
 
@@ -35,6 +35,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 | **Teams** | Alle 20 teams per leeftijdsgroep. Met ☆ volg je een team; het komt dan op Home. Per team: programma, uitslagen, stand en berichten uit de teamcategorie | Sportlink + WordPress |
 | **Elspeet 1** | Zelfde opbouw als de andere teams: teamfoto, volgen, programma, uitslagen, stand en verslagen | Sportlink + WordPress |
 | **Over de club** | Geschiedenis, sportpark en kerncijfers. Voor de rest een link naar de website | Site |
+| **Bestuur & commissies** | Hoofdbestuur, jeugdbestuur, VTC, TC Jeugd, commissies en vertrouwenspersonen, met tikbare e-mailadressen en een link naar het organogram | Site |
 | **Sponsoren** | Alle sponsors zoals in de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, 5 tot 3 sterren, scorebord, balsponsors en Vrienden van ESV. Logo's linken naar de sponsor. Daaronder de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |
 | **Agenda** | Clubactiviteiten met datum en tijd, elk met *In agenda* | Site |
 | **Contact** | Knoppen Bellen, Mailen, Route en Instagram; adres, kantinetijden, parkeren, KNVB-code. Geen formulier | Site |
@@ -66,7 +67,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 - Sponsors staan **per groep, zoals in de sponsorgalerij** van vv-elspeet.nl.
 - De app komt op **app.vv-elspeet.nl**.
 - De **ledenshop** komt niet in de app.
-- Alleen de tien genoemde onderdelen; de rest blijft op de website.
+- Alleen de genoemde onderdelen (later aangevuld met Bestuur & commissies); de rest blijft op de website.
 - Contact: alleen contactgegevens, geen formulier.
 
 ## Volgt later
