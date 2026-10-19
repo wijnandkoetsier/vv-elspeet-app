@@ -653,7 +653,10 @@
    "name": "Elspeet JO9-1",
    "group": "Pupillen",
    "info": "Onder 9",
-   "category": "jo9-1"
+   "category": "jo9-1",
+   "photos": [
+    "img/teams/elspeet-jo9-1.jpg"
+   ]
   },
   {
    "slug": "elspeet-jo8-1",
