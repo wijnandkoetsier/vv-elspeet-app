@@ -35,7 +35,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 | **Teams** | Alle 20 teams per leeftijdsgroep. Met ☆ volg je een team; het komt dan op Home. Per team: programma, uitslagen, stand en berichten uit de teamcategorie | Sportlink + WordPress |
 | **Elspeet 1** | Positie, punten en vorm (laatste 5), volgende wedstrijden, stand, uitslagen, verslagen, over het team; technische staf zodra de namen bekend zijn | Sportlink + WordPress |
 | **Over de club** | Geschiedenis, sportpark en kerncijfers. Voor de rest een link naar de website | Site |
-| **Sponsoren** | Alle sponsorlogo's samen in één overzicht, de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |
+| **Sponsoren** | Alle sponsors zoals in de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, 5 tot 3 sterren, scorebord, balsponsors en Vrienden van ESV. Logo's linken naar de sponsor. Daaronder de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |
 | **Agenda** | Clubactiviteiten met datum en tijd, elk met *In agenda* | Site |
 | **Contact** | Knoppen Bellen, Mailen, Route en Instagram; adres, kantinetijden, parkeren, KNVB-code. Geen formulier | Site |
 
@@ -63,7 +63,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 ## Besluiten
 
 - Elspeet 1 speelt in de **5e klasse**.
-- Sponsors staan **samen in één overzicht**, zonder indeling in niveaus.
+- Sponsors staan **per groep, zoals in de sponsorgalerij** van vv-elspeet.nl.
 - De app komt op **app.vv-elspeet.nl**.
 - De **ledenshop** komt niet in de app.
 - Alleen de tien genoemde onderdelen; de rest blijft op de website.

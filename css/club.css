@@ -292,11 +292,18 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 
 /* Sponsoren */
 .logo-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.logo-strip img, .logo-grid img {
-  width: 100%; aspect-ratio: 3 / 2; object-fit: contain; background: #fff;
-  border: 1px solid var(--lijn); border-radius: var(--r-klein); padding: 4px;
-}
+.sp-logo { display: block; background: #fff; border: 1px solid var(--lijn); border-radius: var(--r-klein); padding: 6px; }
+.sp-logo img { display: block; width: 100%; aspect-ratio: 23 / 10; object-fit: contain; }
+.sp-tier { margin-top: 26px; }
+.sp-tier h2 { font-size: 20px; margin-bottom: 10px; }
+.sp-tier .small { margin: -6px 0 10px; }
+.sp-grid { display: grid; gap: 8px; }
+.sp-grid.xl { grid-template-columns: 1fr; }
+.sp-grid.xl .sp-logo { padding: 14px; }
+.sp-grid.l { grid-template-columns: 1fr 1fr; }
+.sp-grid.m { grid-template-columns: 1fr 1fr; }
+.sp-grid.s { grid-template-columns: repeat(3, 1fr); }
+.sp-row { display: flex; justify-content: space-between; gap: 12px; padding: 11px 14px; }
 .pakket { display: grid; gap: 2px; padding: 12px 14px; }
 .sterren { color: #c9a400; letter-spacing: 2px; font-size: 14px; }
 
@@ -339,7 +346,8 @@ body.home.kop-zichtbaar .topbar { transform: none; }
 
 @media (min-width: 700px) {
   .logo-strip { grid-template-columns: repeat(8, 1fr); }
-  .logo-grid { grid-template-columns: repeat(4, 1fr); }
+  .sp-grid.m { grid-template-columns: repeat(3, 1fr); }
+  .sp-grid.s { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* Uitslag-labels winnen van de standaard .tag-kleur */

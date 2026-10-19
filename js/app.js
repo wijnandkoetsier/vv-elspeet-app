@@ -176,7 +176,11 @@ async function viewHome() {
     return m ? `<div class="card list"><div class="row-kop"><b>★ ${esc(f)}</b><a href="#/teams/${esc(slugOf(data, f))}">Team →</a></div>${matchRow(m, { showDate: true })}</div>` : '';
   }).join('');
   const agenda = data.agenda.filter((a) => toDate(a.date, a.time) >= now).slice(0, 2);
-  const logos = [...data.sponsors.logos].sort(() => Math.random() - 0.5).slice(0, 8);
+  // Op Home: hoofd- en jeugdhoofdsponsoren vast, aangevuld met willekeurige 5-sterrensponsoren.
+  const tiers = data.sponsors.tiers || [];
+  const top = tiers.slice(0, 2).flatMap((t) => t.logos || []);
+  const vijf = [...(tiers[2]?.logos || [])].sort(() => Math.random() - 0.5);
+  const logos = [...top, ...vijf].slice(0, 8);
 
   $view.innerHTML = `
     <figure class="luchtfoto" id="luchtfoto">
@@ -196,7 +200,7 @@ async function viewHome() {
     <div class="posts" id="home-news">${loading()}</div>
     ${agenda.length ? section('Agenda', '#/agenda') + `<div class="card list">${agenda.map(agendaRow).join('')}</div>` : ''}
     ${section('Onze sponsors', '#/sponsoren')}
-    <div class="logo-strip">${logos.map((l) => `<img src="${esc(data.sponsors.logoBase + l)}" alt="" loading="lazy">`).join('')}</div>
+    <div class="logo-strip">${logos.map((l) => sponsorLogo(data.sponsors.logoBase, l)).join('')}</div>
     ${sourceNote(data)}`;
   updateHeader();
   fillPosts(document.getElementById('home-news'), { perPage: 3 });
@@ -394,14 +398,24 @@ async function viewClub() {
     <a class="btn ghost wide" href="${SITE}/de-club/" target="_blank" rel="noopener">Meer over de club op de website</a>`;
 }
 
+function sponsorLogo(base, l) {
+  const img = `<img src="${esc(base + l.logo)}" alt="${esc(l.name)}" loading="lazy">`;
+  return l.url ? `<a class="sp-logo" href="${esc(l.url)}" target="_blank" rel="noopener" title="${esc(l.name)}">${img}</a>` : `<span class="sp-logo" title="${esc(l.name)}">${img}</span>`;
+}
+
+// Zelfde indeling als de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, sterren, scorebord, bal- en vriendensponsors.
 async function viewSponsoren() {
   setTitle('Sponsoren');
   const data = await api.clubData();
   const s = data.sponsors;
+  const blok = (t) => t.logos
+    ? `<section class="sp-tier"><h2>${esc(t.title)}</h2><div class="sp-grid ${esc(t.size || 's')}">${t.logos.map((l) => sponsorLogo(s.logoBase, l)).join('')}</div></section>`
+    : `<section class="sp-tier"><h2>${esc(t.title)}</h2>${t.subtitle ? `<p class="muted small">${esc(t.subtitle)}</p>` : ''}
+        <div class="card list">${t.rows.map(([naam, plaats]) => `<div class="sp-row"><b>${esc(naam)}</b><span class="muted">${esc(plaats || '')}</span></div>`).join('')}</div></section>`;
   $view.innerHTML = `
     <h1 class="paginakop">Sponsoren</h1>
     <p class="lead">Dankzij hen kan iedereen in Elspeet blijven voetballen.</p>
-    <div class="logo-grid">${s.logos.map((l) => `<img src="${esc(s.logoBase + l)}" alt="" loading="lazy">`).join('')}</div>
+    ${s.tiers.map(blok).join('')}
     ${section('Word sponsor')}
     <div class="card list">${s.packages.map(([stars, name, txt]) => `<div class="pakket"><span class="sterren">${stars}</span><b>${esc(name)}</b><small class="muted">${esc(txt)}</small></div>`).join('')}</div>
     <a class="btn wide" href="mailto:${esc(data.club.sponsorEmail)}?subject=${encodeURIComponent('Sponsoring V.V. Elspeet')}">Mail de sponsorcommissie</a>`;

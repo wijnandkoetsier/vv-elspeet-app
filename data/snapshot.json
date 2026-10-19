@@ -723,87 +723,618 @@
   }
  ],
  "sponsors": {
-  "logoBase": "https://wijnandkoetsier.nl/wp-content/themes/vvelspeet-theme-3/assets/sponsors/",
-  "logos": [
-   "01-huisvestingnl.jpg",
-   "02-plusvanderhorst.jpg",
-   "03-balancev2.jpg",
-   "04-vssmeatelspeet.jpg",
-   "05-intersportmeijers.jpg",
-   "06-bronkhorstelektra.jpg",
-   "07-yellowarrownunspeet.jpg",
-   "08-bakkerpietv2.jpg",
-   "09-bidfoodlogo.jpg",
-   "10-lentinkdejongeaccountantsenadviseurs.jpg",
-   "11-vanklompenburgkader.jpg",
-   "12-cachconsult.jpg",
-   "13-casamangakader.jpg",
-   "14-doegbv.jpg",
-   "15-trendhoutkader.jpg",
-   "16-dezuyderzeespakenburginframe.jpg",
-   "17-baanmeesterskader.jpg",
-   "18-calummalogoinkader.jpg",
-   "19-optiekhuiselspeet.jpg",
-   "20-vdhardenberg.jpg",
-   "21-haklanderinterieurbouw.jpg",
-   "22-abc.jpg",
-   "23-vandenhoornoccasions.jpg",
-   "24-bouwbedrijfvandekolk.jpg",
-   "25-veluwseassociatie.jpg",
-   "26-jdbeveiligingkader.jpg",
-   "27-stadsbrouwerijstaverdenkader.jpg",
-   "28-garagestofferkader.jpg",
-   "29-blankeschotuddel.jpg",
-   "30-bestisol.jpg",
-   "31-regiobankhgs.jpg",
-   "32-janderuiterschilderwerken.jpg",
-   "33-howah.jpg",
-   "34-koetsiermedia.jpg",
-   "35-witteveenschildersbedrijf4sterren.jpg",
-   "36-schuitemangrondwerkenkunstgrasjpg.jpg",
-   "37-vandebrugelspeet.jpg",
-   "38-auctakader1.jpg",
-   "39-buitenplaatshetlookader.jpg",
-   "40-bloemenhuuselspeetnieuwjpg.jpg",
-   "41-franken.jpg",
-   "42-peterderuiter.jpg",
-   "43-wuestman.jpg",
-   "44-ridderhofenstelwagenjpg.jpg",
-   "45-ekoetsierdienstverlening.jpg",
-   "46-herbergdezwaanelspeetkader.jpg",
-   "47-elannotarissen.jpg",
-   "48-competeclubkader.jpg",
-   "49-schuitemangrondinfrakader.jpg",
-   "50-debrink.jpg",
-   "51-koksmeubelhuis.jpg",
-   "52-xrdesign.jpg",
-   "53-jacobkoktimmer.jpg",
-   "54-gvsbeveiliging2.jpg",
-   "55-koekman.jpg",
-   "56-vanasseltnieuw.jpg",
-   "57-vanbeektransportelspeetkader.jpg",
-   "58-jwedetaillingkader.jpg",
-   "59-mulderdakbedekkinglogokader.jpg",
-   "60-dejongenlaan.jpg",
-   "61-hofmantransport.jpg",
-   "62-whuisman2.jpg",
-   "63-bakkerijschreuder.jpg",
-   "64-vlsallroundservice2.jpg",
-   "65-vandenhoekadministratiekantoorbewerkt.jpg",
-   "66-zwitserelektrotechniekkader.jpg",
-   "67-gerbenpolindermultibouwkader.jpg",
-   "68-buroholdijk2.jpg",
-   "69-jvauto.jpg",
-   "70-gwieberdink.jpg",
-   "71-cafeblokhut.jpg",
-   "72-hogavandesteeg.jpg",
-   "73-spuiterijnunspeetkader.jpg",
-   "74-boonsmarktkader.jpg",
-   "75-kapsaloneddy.jpg",
-   "76-magnificotuinen.jpg",
-   "77-vandenbergjacob.jpg",
-   "78-hso.jpg",
-   "79-autobedrijfhuismana.jpg"
+  "logoBase": "img/sponsors/",
+  "tiers": [
+   {
+    "title": "Hoofdsponsor",
+    "size": "xl",
+    "logos": [
+     {
+      "name": "Huisvesting.nl",
+      "logo": "huisvestingnl.webp",
+      "url": "https://huisvesting.nl/"
+     }
+    ]
+   },
+   {
+    "title": "Jeugdhoofdsponsoren",
+    "size": "l",
+    "logos": [
+     {
+      "name": "PLUS Van der Horst",
+      "logo": "plusvanderhorst.webp",
+      "url": "https://www.plus.nl/"
+     },
+     {
+      "name": "Balance",
+      "logo": "balance.webp",
+      "url": "https://www.balance-bv.com/"
+     }
+    ]
+   },
+   {
+    "title": "5-sterrensponsoren",
+    "size": "m",
+    "logos": [
+     {
+      "name": "VSS Meat",
+      "logo": "vssmeatelspeet.webp",
+      "url": "http://www.vssmeat.nl/"
+     },
+     {
+      "name": "Intersport Meijers",
+      "logo": "intersportmeijers.webp",
+      "url": "https://www.intersport.nl/"
+     },
+     {
+      "name": "Bronkhorst Elektra",
+      "logo": "bronkhorstelektra.webp",
+      "url": "https://www.bronkhorstelektra.nl/"
+     },
+     {
+      "name": "Yellow Arrow Nunspeet",
+      "logo": "yellowarrownunspeet.webp",
+      "url": "https://yellowarrow.nl/"
+     },
+     {
+      "name": "Bakker Piet",
+      "logo": "bakkerpiet.webp",
+      "url": "http://www.bakker-piet.nl/"
+     },
+     {
+      "name": "Bidfood",
+      "logo": "bidfood.webp",
+      "url": "https://www.bidfood.nl/webshop/"
+     },
+     {
+      "name": "Lentink de Jonge Accountants en Adviseurs",
+      "logo": "lentinkdejongeaccountantsenadviseurs.webp",
+      "url": "https://www.lentinkdejonge.nl/"
+     },
+     {
+      "name": "Bestisol",
+      "logo": "bestisol.webp",
+      "url": "http://bestisol.nl/"
+     },
+     {
+      "name": "Casa Manga",
+      "logo": "casamanga.webp",
+      "url": "https://casamanga.nl/"
+     },
+     {
+      "name": "DOEG B.V.",
+      "logo": "doegbv.webp",
+      "url": "https://www.doegzorg.nl/"
+     },
+     {
+      "name": "Trendhout",
+      "logo": "trendhout.webp",
+      "url": "https://www.trendhout.nl/"
+     },
+     {
+      "name": "Koetsier Media",
+      "logo": "koetsiermedia.webp",
+      "url": "https://koetsiermedia.nl/"
+     },
+     {
+      "name": "De Zuyderzee Spakenburg",
+      "logo": "dezuyderzeespakenburg.webp",
+      "url": "http://marcelkorlaar.nl/"
+     },
+     {
+      "name": "Calumma",
+      "logo": "calumma.webp",
+      "url": "https://www.calumma.nl/"
+     },
+     {
+      "name": "Van Klompenburg",
+      "logo": "vanklompenburg.webp",
+      "url": "https://www.vkeb.nl/"
+     },
+     {
+      "name": "Wuestman",
+      "logo": "wuestman.webp",
+      "url": "https://www.wuestman.nl/"
+     },
+     {
+      "name": "Cash Consult",
+      "logo": "cachconsult.webp",
+      "url": ""
+     },
+     {
+      "name": "Baanmeesters",
+      "logo": "baanmeesters.webp",
+      "url": ""
+     }
+    ]
+   },
+   {
+    "title": "4-sterrensponsoren",
+    "size": "s",
+    "logos": [
+     {
+      "name": "Optiekhuys Elspeet",
+      "logo": "optiekhuiselspeet.webp",
+      "url": "https://optiekhuyselspeet.nl/"
+     },
+     {
+      "name": "Van den Hardenberg",
+      "logo": "vdhardenberg.webp",
+      "url": "https://www.vdhardenberg.nl/"
+     },
+     {
+      "name": "Haklander Interieurbouw",
+      "logo": "haklanderinterieurbouw.webp",
+      "url": "http://www.interieurbouw-haklander.nl/"
+     },
+     {
+      "name": "ABC Hekwerk",
+      "logo": "abc.webp",
+      "url": "http://www.abchekwerk.nl/"
+     },
+     {
+      "name": "Van den Hoorn Occasions",
+      "logo": "vandenhoornoccasions.webp",
+      "url": "https://www.vandenhoornoccasions.nl/"
+     },
+     {
+      "name": "Bouwbedrijf Van de Kolk",
+      "logo": "bouwbedrijfvandekolk.webp",
+      "url": "https://www.vandekolk.nl/"
+     },
+     {
+      "name": "Veluwse Associatie",
+      "logo": "veluwseassociatie.webp",
+      "url": "https://veluwse-associatie.nl/"
+     },
+     {
+      "name": "JD Beveiliging",
+      "logo": "jdbeveiliging.webp",
+      "url": ""
+     },
+     {
+      "name": "Stadsbrouwerij Staverden",
+      "logo": "stadsbrouwerijstaverden.webp",
+      "url": "https://stadsbrouwerijstaverden.nl/"
+     },
+     {
+      "name": "Garage Stoffer",
+      "logo": "garagestoffer.webp",
+      "url": ""
+     },
+     {
+      "name": "RegioBank HGS",
+      "logo": "regiobankhgs.webp",
+      "url": "http://www.hgselspeet.nl/"
+     },
+     {
+      "name": "Jan de Ruiter Schilderwerken",
+      "logo": "janderuiterschilderwerken.webp",
+      "url": ""
+     },
+     {
+      "name": "Howah",
+      "logo": "howah.webp",
+      "url": ""
+     },
+     {
+      "name": "Witteveen Schildersbedrijf",
+      "logo": "witteveenschildersbedrijf.webp",
+      "url": "http://www.schildersbedrijfnunspeet.nl/"
+     },
+     {
+      "name": "Schuiteman Grondwerken & Kunstgras",
+      "logo": "schuitemangrondwerkenkunstgras.webp",
+      "url": ""
+     },
+     {
+      "name": "Van de Brug Elspeet",
+      "logo": "vandebrugelspeet.webp",
+      "url": "https://brugtransport.nl/"
+     },
+     {
+      "name": "Aucta",
+      "logo": "aucta.webp",
+      "url": "https://aucta.nl/"
+     },
+     {
+      "name": "Buitenplaats Het Loo",
+      "logo": "buitenplaatshetloo.webp",
+      "url": "https://buitenplaatshetloo.nl/"
+     },
+     {
+      "name": "Schuiteman Grond & Infra",
+      "logo": "schuitemangrondinfra.webp",
+      "url": ""
+     },
+     {
+      "name": "Mulder Dakbedekking",
+      "logo": "mulderdakbedekking.webp",
+      "url": ""
+     },
+     {
+      "name": "Autobedrijf Franken",
+      "logo": "franken.webp",
+      "url": "http://www.autobedrijffranken.nl/"
+     },
+     {
+      "name": "Peter de Ruiter Verhuur",
+      "logo": "peterderuiter.webp",
+      "url": "http://www.pdrverhuur.nl/"
+     },
+     {
+      "name": "Ridderhof & Stelwagen Notariaat",
+      "logo": "ridderhofenstelwagen.webp",
+      "url": "https://www.notariaatvaassen.nl/"
+     },
+     {
+      "name": "E. Koetsier Dienstverlening",
+      "logo": "ekoetsierdienstverlening.webp",
+      "url": ""
+     },
+     {
+      "name": "Herberg De Zwaan Elspeet",
+      "logo": "herbergdezwaanelspeet.webp",
+      "url": "https://dezwaanelspeet.nl/"
+     },
+     {
+      "name": "Elan Notarissen",
+      "logo": "elannotarissen.webp",
+      "url": "https://elannotarissen.nl/"
+     },
+     {
+      "name": "Compete Club",
+      "logo": "competeclub.webp",
+      "url": "https://www.competeclub.nl/"
+     },
+     {
+      "name": "Blankeschot Uddel",
+      "logo": "blankeschotuddel.webp",
+      "url": "https://www.blankeschot.nl/"
+     },
+     {
+      "name": "Molenaar",
+      "logo": "molenaar.webp",
+      "url": "https://molenaar.nl/"
+     },
+     {
+      "name": "Gezondheidsdrogist De Brink",
+      "logo": "debrink.webp",
+      "url": "https://www.gezondheidswinkel.nl/vestigingen/elspeet-gw-gezondheidsdrogist-de-brink"
+     },
+     {
+      "name": "Kok's Meubelhuis",
+      "logo": "koksmeubelhuis.webp",
+      "url": "https://www.koksmeubelhuis.nl/"
+     },
+     {
+      "name": "X&R Design",
+      "logo": "xrdesign.webp",
+      "url": "https://www.xrdesign.nl/"
+     },
+     {
+      "name": "Timmerbedrijf Jacob Kok",
+      "logo": "jacobkoktimmer.webp",
+      "url": "http://www.timmerbedrijfkok.nl/"
+     },
+     {
+      "name": "GVS Beveiliging",
+      "logo": "gvsbeveiliging.webp",
+      "url": "http://www.gvsbeveiliging.nl/home/"
+     },
+     {
+      "name": "Koekman",
+      "logo": "koekman.webp",
+      "url": "https://www.koekman.nl/"
+     },
+     {
+      "name": "Grondwerk Van Asselt",
+      "logo": "vanasselt.webp",
+      "url": "https://grondwerkvanasselt.nl/"
+     },
+     {
+      "name": "Van Beek Transport Elspeet",
+      "logo": "vanbeektransportelspeet.webp",
+      "url": ""
+     },
+     {
+      "name": "JWE Detailing",
+      "logo": "jwedetailling.webp",
+      "url": "https://jwedetailing.nl/"
+     },
+     {
+      "name": "Bloemenhuus Elspeet",
+      "logo": "bloemenhuuselspeet.webp",
+      "url": ""
+     }
+    ]
+   },
+   {
+    "title": "3-sterrensponsoren",
+    "size": "s",
+    "logos": [
+     {
+      "name": "Bronkhorst Elektra",
+      "logo": "bronkhorstelektra.webp",
+      "url": "https://www.bronkhorstelektra.nl/"
+     },
+     {
+      "name": "Bakker Piet",
+      "logo": "bakkerpiet.webp",
+      "url": "http://www.bakker-piet.nl/"
+     },
+     {
+      "name": "De Jong en Laan",
+      "logo": "dejongenlaan.webp",
+      "url": "https://www.jonglaan.nl/"
+     },
+     {
+      "name": "Hofman Transport",
+      "logo": "hofmantransport.webp",
+      "url": ""
+     },
+     {
+      "name": "Schildersbedrijf W. Huisman",
+      "logo": "whuisman.webp",
+      "url": "http://www.schildersbedrijfwhuisman.nl/"
+     },
+     {
+      "name": "Bakkerij Schreuder",
+      "logo": "bakkerijschreuder.webp",
+      "url": "https://www.bakkerijschreuder.nl/"
+     },
+     {
+      "name": "Van den Hoorn Occasions",
+      "logo": "vandenhoornoccasions.webp",
+      "url": "https://www.vandenhoornoccasions.nl/"
+     },
+     {
+      "name": "Van de Brug Elspeet",
+      "logo": "vandebrugelspeet.webp",
+      "url": "https://brugtransport.nl/"
+     },
+     {
+      "name": "Van Beek Transport Elspeet",
+      "logo": "vanbeektransportelspeet.webp",
+      "url": ""
+     },
+     {
+      "name": "RegioBank HGS",
+      "logo": "regiobankhgs.webp",
+      "url": "http://www.hgselspeet.nl/"
+     },
+     {
+      "name": "ABC Hekwerk",
+      "logo": "abc.webp",
+      "url": "http://www.abchekwerk.nl/"
+     },
+     {
+      "name": "VLS Allround Service",
+      "logo": "vlsallroundservice.webp",
+      "url": ""
+     },
+     {
+      "name": "Intersport Meijers",
+      "logo": "intersportmeijers.webp",
+      "url": "https://www.intersport.nl/"
+     },
+     {
+      "name": "Van den Hoek Administratiekantoor",
+      "logo": "vandenhoekadministratiekantoor.webp",
+      "url": ""
+     },
+     {
+      "name": "Balance",
+      "logo": "balance.webp",
+      "url": "http://www.balance-bv.com/"
+     },
+     {
+      "name": "Zwitser Elektrotechniek",
+      "logo": "zwitserelektrotechniek.webp",
+      "url": "https://zwitserelektrotechniek.nl/"
+     },
+     {
+      "name": "JD Beveiliging",
+      "logo": "jdbeveiliging.webp",
+      "url": ""
+     },
+     {
+      "name": "Gerben Polinder Multibouw",
+      "logo": "gerbenpolindermultibouw.webp",
+      "url": ""
+     },
+     {
+      "name": "Buro Holdijk",
+      "logo": "buroholdijk.webp",
+      "url": "http://www.buroholdijk.nl/"
+     },
+     {
+      "name": "JV Auto's",
+      "logo": "jvauto.webp",
+      "url": "http://www.jvautos.nl/"
+     },
+     {
+      "name": "G. Wieberdink",
+      "logo": "gwieberdink.webp",
+      "url": "http://www.gwieberdink.nl/"
+     },
+     {
+      "name": "Café De Blokhut",
+      "logo": "cafeblokhut.webp",
+      "url": "https://www.facebook.com/CafeDeBlokhut/"
+     },
+     {
+      "name": "Hoga Van de Steeg",
+      "logo": "hogavandesteeg.webp",
+      "url": "https://stalbenodigdheden.com/"
+     },
+     {
+      "name": "Bestisol",
+      "logo": "bestisol.webp",
+      "url": "http://www.bestisol.nl/"
+     },
+     {
+      "name": "Peter de Ruiter Verhuur",
+      "logo": "peterderuiter.webp",
+      "url": "http://www.pdrverhuur.nl/"
+     },
+     {
+      "name": "Spuiterij Nunspeet",
+      "logo": "spuiterijnunspeet.webp",
+      "url": "https://www.spuiterijnunspeet.nl/"
+     },
+     {
+      "name": "Boonsmarkt",
+      "logo": "boonsmarkt.webp",
+      "url": "https://boonsmarkt.nl/"
+     },
+     {
+      "name": "Kapsalon Eddy",
+      "logo": "kapsaloneddy.webp",
+      "url": ""
+     },
+     {
+      "name": "PLUS Van der Horst",
+      "logo": "plusvanderhorst.webp",
+      "url": "https://www.plus.nl/"
+     },
+     {
+      "name": "Timmerbedrijf Jacob Kok",
+      "logo": "jacobkoktimmer.webp",
+      "url": "http://www.timmerbedrijfkok.nl/"
+     },
+     {
+      "name": "VSS Meat",
+      "logo": "vssmeatelspeet.webp",
+      "url": "http://www.vssmeat.nl/"
+     },
+     {
+      "name": "Magnifico Tuinen",
+      "logo": "magnificotuinen.webp",
+      "url": "https://www.magnificotuinen.nl/"
+     },
+     {
+      "name": "Jacob van den Berg",
+      "logo": "vandenbergjacob.webp",
+      "url": ""
+     },
+     {
+      "name": "HSO",
+      "logo": "hso.webp",
+      "url": "https://www.hso.com/"
+     },
+     {
+      "name": "Autobedrijf Huisman",
+      "logo": "autobedrijfhuismana.webp",
+      "url": ""
+     }
+    ]
+   },
+   {
+    "title": "Scorebordsponsoren",
+    "size": "s",
+    "logos": [
+     {
+      "name": "Van den Hoorn Occasions",
+      "logo": "vandenhoornoccasions.webp",
+      "url": "https://www.vandenhoornoccasions.nl/"
+     },
+     {
+      "name": "Bestisol",
+      "logo": "bestisol.webp",
+      "url": "http://bestisol.nl/"
+     },
+     {
+      "name": "PLUS Van der Horst",
+      "logo": "plusvanderhorst.webp",
+      "url": "https://www.plus.nl/"
+     },
+     {
+      "name": "Bouwbedrijf Van de Kolk",
+      "logo": "bouwbedrijfvandekolk.webp",
+      "url": "https://www.vandekolk.nl/"
+     },
+     {
+      "name": "Bronkhorst Elektra",
+      "logo": "bronkhorstelektra.webp",
+      "url": "https://www.bronkhorstelektra.nl/"
+     },
+     {
+      "name": "Haklander Interieurbouw",
+      "logo": "haklanderinterieurbouw.webp",
+      "url": "http://www.interieurbouw-haklander.nl/"
+     },
+     {
+      "name": "Balance",
+      "logo": "balance.webp",
+      "url": "http://www.balance-bv.com/"
+     }
+    ]
+   },
+   {
+    "title": "2-sterrensponsoren",
+    "subtitle": "Balsponsors",
+    "rows": [
+     [
+      "Notariaat Pieltjes B.V.",
+      "Nunspeet"
+     ],
+     [
+      "VSS Meat",
+      "Elspeet"
+     ],
+     [
+      "Auto Electra Ap de Ruiter V.O.F.",
+      "Elspeet"
+     ],
+     [
+      "Hofman Transport VOF",
+      "Elspeet"
+     ],
+     [
+      "Cafetaria/Eethuis De Posthoorn V.O.F.",
+      "Elspeet"
+     ],
+     [
+      "Kok's Meubelhuis",
+      "Harderwijk"
+     ],
+     [
+      "X&R Design",
+      "Nunspeet"
+     ],
+     [
+      "Koetsier Agriservice",
+      "Elspeet"
+     ],
+     [
+      "Constructiebedrijf Geefshuysen B.V.",
+      "Scherpenzeel"
+     ],
+     [
+      "Kapsalon 'Eddy'",
+      "Elspeet"
+     ],
+     [
+      "Frank Bouw, grond en tuin",
+      "Nunspeet"
+     ]
+    ]
+   },
+   {
+    "title": "1-stersponsoren",
+    "subtitle": "Vrienden van ESV",
+    "rows": [
+     [
+      "Kapsalon Eddy",
+      "Elspeet"
+     ],
+     [
+      "Cafetaria de Posthoorn",
+      "Elspeet"
+     ]
+    ]
+   }
   ],
   "packages": [
    [
