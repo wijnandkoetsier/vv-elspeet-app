@@ -642,7 +642,10 @@
    "name": "Elspeet JO11-1",
    "group": "Pupillen",
    "info": "Onder 11",
-   "category": "jo11-1"
+   "category": "jo11-1",
+   "photos": [
+    "img/teams/elspeet-jo11-1.jpg"
+   ]
   },
   {
    "slug": "elspeet-jo10-1",
