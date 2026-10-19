@@ -449,6 +449,7 @@ async function viewTeam(slug) {
       <img src="icons/logo.png" alt="">
       <div><small>${esc(t.group)}</small><h1>${esc(t.name)}</h1><span class="muted">${esc(t.info)}</span></div>
     </section>
+    ${t.photo ? `<figure class="teamfoto"><img src="${esc(t.photo)}" alt="Teamfoto ${esc(t.name)}" loading="lazy"></figure>` : ''}
     <button type="button" class="btn ${fav ? 'ghost' : ''} wide" data-fav="${esc(t.name)}">${fav ? '★ Je volgt dit team' : '☆ Volg dit team'}</button>
     ${section('Programma')}
     ${up.length ? `<div class="card list">${up.map((m) => matchRow(m, { showDate: true })).join('')}</div>` : '<p class="muted pad">Geen wedstrijden gepland.</p>'}
