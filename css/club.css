@@ -26,9 +26,10 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { margin: 0; }
-/* Lettergrootte uit Instellingen: alle tekst schaalt mee (rem). */
+/* Lettergrootte uit Instellingen: alle tekst schaalt mee (rem). Standaard Klein. */
+html { font-size: 93.75%; }
+html.fs-middel { font-size: 100%; }
 html.fs-groot { font-size: 112.5%; }
-html.fs-xl { font-size: 125%; }
 body {
   font: 1rem/1.5 var(--font);
   background: var(--papier); color: var(--inkt);

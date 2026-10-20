@@ -607,9 +607,9 @@ function viewMeer() {
 // ---------- Instellingen ----------
 // Alles wordt op deze telefoon bewaard; er is (nog) geen account nodig.
 
-const FONT_SIZES = [['', 'Normaal', 'a1'], ['groot', 'Groot', 'a2'], ['xl', 'Extra groot', 'a3']];
+const FONT_SIZES = [['', 'Klein', 'a1'], ['middel', 'Middel', 'a2'], ['groot', 'Groot', 'a3']];
 function applyFontSize(v) {
-  document.documentElement.classList.remove('fs-groot', 'fs-xl');
+  document.documentElement.classList.remove('fs-middel', 'fs-groot', 'fs-xl');
   if (v) document.documentElement.classList.add(`fs-${v}`);
 }
 const PUSH_TOPICS = [
@@ -623,7 +623,7 @@ const PUSH_TOPICS = [
 async function viewInstellingen() {
   setTitle('Instellingen');
   const data = await api.clubData();
-  const fs = store.get('fontsize', '');
+  const fs = store.get('fontsize', '') === 'xl' ? 'groot' : store.get('fontsize', '');
   const favs = favorites();
   const push = store.get('push', { aan: false, topics: ['uitslag', 'afgelast', 'elspeet1'] });
   const pushKan = 'Notification' in window && 'serviceWorker' in navigator;

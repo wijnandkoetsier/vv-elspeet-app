@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap">
   <link rel="stylesheet" href="css/club.css">
-  <script>try { const f = JSON.parse(localStorage.getItem('vve.fontsize')); if (f) document.documentElement.classList.add('fs-' + f); } catch (e) {}</script>
+  <script>try { let f = JSON.parse(localStorage.getItem('vve.fontsize')); if (f === 'xl') f = 'groot'; if (f) document.documentElement.classList.add('fs-' + f); } catch (e) {}</script>
 </head>
 <body>
   <header class="topbar">
