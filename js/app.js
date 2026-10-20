@@ -628,7 +628,6 @@ async function viewInstellingen() {
   const push = store.get('push', { aan: false, topics: ['uitslag', 'afgelast', 'elspeet1'] });
   const pushKan = 'Notification' in window && 'serviceWorker' in navigator;
   const toestemming = pushKan ? Notification.permission : 'unsupported';
-  const voter = (() => { try { return localStorage.getItem('vve.voter'); } catch { return null; } })();
   $view.innerHTML = `
     <h1 class="paginakop">Instellingen</h1>
     <div class="inst">
@@ -652,13 +651,6 @@ async function viewInstellingen() {
         ${PUSH_TOPICS.map(([k, l, sub]) => `<label class="schakel"><span>${esc(l)}<small>${esc(sub)}</small></span><input type="checkbox" data-push-topic="${k}" ${push.topics.includes(k) ? 'checked' : ''} ${push.aan && toestemming === 'granted' ? '' : 'disabled'}></label>`).join('')}
       </div>
       <p class="muted small pad">Meldingen over "mijn teams" gaan over de teams die je volgt. Het versturen van meldingen wordt binnenkort aangezet; je keuzes worden nu al bewaard.</p>
-
-      <h2>Account</h2>
-      <div class="card list">
-        <div class="inst-rij"><span><b>Geen account nodig</b><small>Je gevolgde teams, filters en instellingen staan alleen op deze telefoon.</small></span></div>
-        <div class="inst-rij"><span><b>Spelerscijfers</b><small>${voter ? `Je stemt anoniem met code ${esc(voter.slice(0, 8))}…` : 'Je hebt nog geen cijfers gegeven.'}</small></span></div>
-        <div class="inst-rij"><span><b>Gegevens op deze telefoon wissen</b><small>Gevolgde teams, filters en instellingen. Gegeven cijfers blijven tellen.</small></span><button type="button" class="link-knop rood" data-wis-alles>Wissen</button></div>
-      </div>
 
       <h2>App</h2>
       <div class="card list">
@@ -870,7 +862,7 @@ window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));
 
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('[data-match],[data-rate],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-fontsize],[data-unfav],[data-push-aan],[data-push-topic],[data-wis-alles],[data-verversen],[data-cat],[data-photo],[data-share],[data-close]');
+  const t = e.target.closest('[data-match],[data-rate],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-fontsize],[data-unfav],[data-push-aan],[data-push-topic],[data-verversen],[data-cat],[data-photo],[data-share],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.ics) {
@@ -894,11 +886,6 @@ document.addEventListener('click', async (e) => {
     const push = store.get('push', { aan: false, topics: [] });
     push.topics = t.checked ? [...new Set([...push.topics, t.dataset.pushTopic])] : push.topics.filter((x) => x !== t.dataset.pushTopic);
     store.set('push', push); return;
-  }
-  if (t.dataset.wisAlles !== undefined) {
-    if (!confirm('Gevolgde teams, filters en instellingen op deze telefoon wissen?')) return;
-    for (const k of ['fav', 'group', 'fteam', 'fdate-programma', 'fdate-uitslagen', 'fontsize', 'push']) { try { localStorage.removeItem(`vve.${k}`); } catch { /* */ } }
-    applyFontSize(''); return viewInstellingen();
   }
   if (t.dataset.verversen !== undefined) {
     const reg = await navigator.serviceWorker?.getRegistration?.().catch(() => null);
