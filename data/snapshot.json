@@ -648,7 +648,10 @@
    "name": "Elspeet JO13-1",
    "group": "Junioren",
    "info": "Onder 13",
-   "category": "jo13-1"
+   "category": "jo13-1",
+   "photos": [
+    "img/teams/elspeet-jo13-1.jpg"
+   ]
   },
   {
    "slug": "elspeet-jo12-1",
