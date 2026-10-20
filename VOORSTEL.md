@@ -37,6 +37,7 @@ Onder *Meer*: Elspeet 1, Wedstrijdverslagen, Media, Agenda, Over de club, Sponso
 | **Spelerscijfers & Speler van het jaar** | Bij gespeelde wedstrijden van Elspeet 1 geeft iedereen spelers een cijfer (1–10, halve punten, of – voor niet gespeeld). Stand per seizoen onder Meer | Supabase |
 | **Over de club** | Geschiedenis, sportpark en kerncijfers. Voor de rest een link naar de website | Site |
 | **Bestuur & commissies** | Hoofdbestuur, jeugdbestuur, VTC, TC Jeugd, commissies en vertrouwenspersonen, met tikbare e-mailadressen en een link naar het organogram | Site |
+| **Instellingen** | Lettergrootte (normaal, groot, extra groot), gevolgde teams beheren, pushmeldingen per onderwerp (versturen volgt), gegevens op deze telefoon wissen, app installeren en verversen | Telefoon |
 | **Sponsoren** | Alle sponsors zoals in de sponsorgalerij: hoofdsponsor, jeugdhoofdsponsoren, 5 tot 3 sterren, scorebord, balsponsors en Vrienden van ESV. Logo's linken naar de sponsor. Daaronder de pakketten (1 tot 5 sterren) en een knop om de sponsorcommissie te mailen | Site |
 | **Agenda** | Clubactiviteiten met datum en tijd, elk met *In agenda* | Site |
 | **Contact** | Knoppen Bellen, Mailen, Route en Instagram; adres, kantinetijden, parkeren, KNVB-code. Geen formulier | Site |

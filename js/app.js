@@ -596,18 +596,96 @@ function viewMeer() {
     ['#/speler-van-het-jaar', 'Speler van het jaar', 'Stand van de spelerscijfers'],
     ['#/sponsoren', 'Sponsoren', 'Onze partners en pakketten'],
     ['#/contact', 'Contact', 'Adres, kantine en route'],
+    ['#/instellingen', 'Instellingen', 'Lettergrootte, meldingen en meer'],
   ];
   $view.innerHTML = `
     <h1 class="paginakop">Meer</h1>
     <div class="card list">${items.map(([h, t, s]) => `<a class="nav-row" href="${h}"><span><b>${t}</b><small>${s}</small></span><span aria-hidden="true">›</span></a>`).join('')}</div>
-    ${installPrompt ? '<button class="btn wide" type="button" id="install">Installeer de app</button>' : ''}
-    <p class="muted small pad">${standalone() ? 'Je gebruikt de geïnstalleerde app.' : 'Installeer de app: iPhone → Safari → Deel → Zet op beginscherm. Android → Chrome → ⋮ → App installeren.'}</p>`;
+    <p class="muted small pad">Lettergrootte, meldingen en de app installeren regel je bij Instellingen.</p>`;
+}
+
+// ---------- Instellingen ----------
+// Alles wordt op deze telefoon bewaard; er is (nog) geen account nodig.
+
+const FONT_SIZES = [['', 'Normaal', 'a1'], ['groot', 'Groot', 'a2'], ['xl', 'Extra groot', 'a3']];
+function applyFontSize(v) {
+  document.documentElement.classList.remove('fs-groot', 'fs-xl');
+  if (v) document.documentElement.classList.add(`fs-${v}`);
+}
+const PUSH_TOPICS = [
+  ['uitslag', 'Uitslagen van mijn teams', 'Zodra de einduitslag bekend is'],
+  ['afgelast', 'Afgelastingen van mijn teams', 'Als een wedstrijd niet doorgaat'],
+  ['elspeet1', 'Elspeet 1', 'Wedstrijddag, uitslag en verslag'],
+  ['nieuws', 'Clubnieuws', 'Nieuwe berichten op de website'],
+  ['agenda', 'Agenda', 'Herinnering aan clubactiviteiten'],
+];
+
+async function viewInstellingen() {
+  setTitle('Instellingen');
+  const data = await api.clubData();
+  const fs = store.get('fontsize', '');
+  const favs = favorites();
+  const push = store.get('push', { aan: false, topics: ['uitslag', 'afgelast', 'elspeet1'] });
+  const pushKan = 'Notification' in window && 'serviceWorker' in navigator;
+  const toestemming = pushKan ? Notification.permission : 'unsupported';
+  const voter = (() => { try { return localStorage.getItem('vve.voter'); } catch { return null; } })();
+  $view.innerHTML = `
+    <h1 class="paginakop">Instellingen</h1>
+    <div class="inst">
+      <h2>Weergave</h2>
+      <div class="card pad-l">
+        <b>Lettergrootte</b>
+        <div class="seg3" style="margin-top:10px">${FONT_SIZES.map(([v, l, c]) => `<button type="button" class="${c} ${fs === v ? 'on' : ''}" data-fontsize="${v}">${l}</button>`).join('')}</div>
+        <p class="voorbeeld">Zo ziet tekst in de app eruit.</p>
+      </div>
+
+      <h2>Mijn teams</h2>
+      <div class="card list">
+        ${favs.length ? favs.map((f) => `<div class="inst-rij"><span><b>★ ${esc(f)}</b><small>Staat bovenaan op Home</small></span><button type="button" class="link-knop rood" data-unfav="${esc(f)}">Ontvolgen</button></div>`).join('') : '<div class="inst-rij"><span><b>Je volgt nog geen team</b><small>Volg een team om het op Home te zien.</small></span></div>'}
+        <div class="inst-rij"><a class="link-knop" href="#/teams">＋ Team kiezen</a></div>
+      </div>
+
+      <h2>Pushmeldingen</h2>
+      <div class="card list">
+        <label class="schakel"><span><b>Meldingen ontvangen</b><small>${!pushKan ? 'Deze browser ondersteunt geen meldingen. Op de iPhone: zet de app eerst op je beginscherm.' : toestemming === 'denied' ? 'Meldingen zijn geblokkeerd. Zet ze aan in de instellingen van je telefoon.' : 'Op je vergrendelscherm, ook als de app dicht is.'}</small></span>
+          <input type="checkbox" data-push-aan ${push.aan && toestemming === 'granted' ? 'checked' : ''} ${!pushKan || toestemming === 'denied' ? 'disabled' : ''}></label>
+        ${PUSH_TOPICS.map(([k, l, sub]) => `<label class="schakel"><span>${esc(l)}<small>${esc(sub)}</small></span><input type="checkbox" data-push-topic="${k}" ${push.topics.includes(k) ? 'checked' : ''} ${push.aan && toestemming === 'granted' ? '' : 'disabled'}></label>`).join('')}
+      </div>
+      <p class="muted small pad">Meldingen over "mijn teams" gaan over de teams die je volgt. Het versturen van meldingen wordt binnenkort aangezet; je keuzes worden nu al bewaard.</p>
+
+      <h2>Account</h2>
+      <div class="card list">
+        <div class="inst-rij"><span><b>Geen account nodig</b><small>Je gevolgde teams, filters en instellingen staan alleen op deze telefoon.</small></span></div>
+        <div class="inst-rij"><span><b>Spelerscijfers</b><small>${voter ? `Je stemt anoniem met code ${esc(voter.slice(0, 8))}…` : 'Je hebt nog geen cijfers gegeven.'}</small></span></div>
+        <div class="inst-rij"><span><b>Gegevens op deze telefoon wissen</b><small>Gevolgde teams, filters en instellingen. Gegeven cijfers blijven tellen.</small></span><button type="button" class="link-knop rood" data-wis-alles>Wissen</button></div>
+      </div>
+
+      <h2>App</h2>
+      <div class="card list">
+        ${installPrompt ? '<div class="inst-rij"><span><b>Installeer de app</b><small>Zet V.V. Elspeet op je beginscherm.</small></span><button type="button" class="link-knop" id="install">Installeren</button></div>' : `<div class="inst-rij"><span><b>${standalone() ? 'App is geïnstalleerd' : 'Op je beginscherm zetten'}</b><small>${standalone() ? 'Je gebruikt de app vanaf je beginscherm.' : 'iPhone: Safari → Deel → Zet op beginscherm. Android: Chrome → ⋮ → App installeren.'}</small></span></div>`}
+        <div class="inst-rij"><span><b>Nieuwste versie laden</b><small>Haalt de laatste versie van de app op.</small></span><button type="button" class="link-knop" data-verversen>Verversen</button></div>
+        <div class="inst-rij"><span><b>Gegevens</b><small>${data.source === 'live' ? 'Live van de clubwebsite' : `Momentopname van ${short(new Date(data.updated))}`}</small></span></div>
+        <a class="inst-rij" href="#/contact" style="color:inherit;text-decoration:none"><span><b>Vraag of foutje gezien?</b><small>Neem contact op met de club</small></span><span aria-hidden="true">›</span></a>
+      </div>
+    </div>`;
   document.getElementById('install')?.addEventListener('click', async () => {
-    installPrompt.prompt();
-    await installPrompt.userChoice.catch(() => {});
-    installPrompt = null;
-    viewMeer();
+    installPrompt.prompt(); await installPrompt.userChoice.catch(() => {}); installPrompt = null; viewInstellingen();
   });
+}
+
+async function zetPush(aan) {
+  const push = store.get('push', { aan: false, topics: ['uitslag', 'afgelast', 'elspeet1'] });
+  if (aan && Notification.permission !== 'granted') {
+    const r = await Notification.requestPermission().catch(() => 'denied');
+    if (r !== 'granted') { push.aan = false; store.set('push', push); return viewInstellingen(); }
+  }
+  push.aan = aan; store.set('push', push);
+  viewInstellingen();
+  if (aan) {
+    // Proefmelding; niet wachten als de service worker (nog) niet klaar is.
+    const reg = await Promise.race([navigator.serviceWorker.ready, new Promise((r) => setTimeout(r, 3000))]).catch(() => null);
+    reg?.showNotification?.('V.V. Elspeet', { body: 'Meldingen staan aan. Zo ziet een melding eruit.', icon: 'icons/icon-192.png', tag: 'vve-test' }).catch(() => {});
+  }
 }
 
 // ---------- Sheet (wedstrijddetails, foto's) ----------
@@ -755,6 +833,7 @@ const routes = [
   [/^\/sponsoren$/, 'meer', viewSponsoren],
   [/^\/agenda$/, 'meer', viewAgenda],
   [/^\/contact$/, 'meer', viewContact],
+  [/^\/instellingen$/, 'meer', viewInstellingen],
   [/^\/meer$/, 'meer', viewMeer],
 ];
 
@@ -791,7 +870,7 @@ window.addEventListener('hashchange', () => { depth += 1; route(); });
 $back.addEventListener('click', () => (depth > 0 ? history.back() : (location.hash = '#/meer')));
 
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('[data-match],[data-rate],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-cat],[data-photo],[data-share],[data-close]');
+  const t = e.target.closest('[data-match],[data-rate],[data-ics],[data-agenda],[data-fav],[data-filter],[data-filter-wis],[data-jump],[data-fontsize],[data-unfav],[data-push-aan],[data-push-topic],[data-wis-alles],[data-verversen],[data-cat],[data-photo],[data-share],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.ics) {
@@ -807,6 +886,25 @@ document.addEventListener('click', async (e) => {
     return;
   }
   if (t.dataset.fav) { toggleFav(t.dataset.fav); return route(); }
+  if (t.dataset.fontsize !== undefined) { store.set('fontsize', t.dataset.fontsize); applyFontSize(t.dataset.fontsize); return viewInstellingen(); }
+  if (t.dataset.unfav) { toggleFav(t.dataset.unfav); return viewInstellingen(); }
+  if (t.dataset.pushAan !== undefined) { if (e.target === t) zetPush(t.checked); return; }
+  if (t.dataset.pushTopic) {
+    if (e.target !== t) return;
+    const push = store.get('push', { aan: false, topics: [] });
+    push.topics = t.checked ? [...new Set([...push.topics, t.dataset.pushTopic])] : push.topics.filter((x) => x !== t.dataset.pushTopic);
+    store.set('push', push); return;
+  }
+  if (t.dataset.wisAlles !== undefined) {
+    if (!confirm('Gevolgde teams, filters en instellingen op deze telefoon wissen?')) return;
+    for (const k of ['fav', 'group', 'fteam', 'fdate-programma', 'fdate-uitslagen', 'fontsize', 'push']) { try { localStorage.removeItem(`vve.${k}`); } catch { /* */ } }
+    applyFontSize(''); return viewInstellingen();
+  }
+  if (t.dataset.verversen !== undefined) {
+    const reg = await navigator.serviceWorker?.getRegistration?.().catch(() => null);
+    await reg?.update().catch(() => {});
+    location.reload(); return;
+  }
   if (t.dataset.jump) {
     const el = document.getElementById(t.dataset.jump);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 90, behavior: 'smooth' });
