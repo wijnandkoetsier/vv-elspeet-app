@@ -695,7 +695,11 @@
    "name": "Elspeet JO8-1",
    "group": "Pupillen",
    "info": "Onder 8",
-   "category": "jo8-1"
+   "category": "jo8-1",
+   "photos": [
+    "img/teams/elspeet-jo8-1-1.jpg",
+    "img/teams/elspeet-jo8-1-2.jpg"
+   ]
   },
   {
    "slug": "elspeet-jo7-1",
